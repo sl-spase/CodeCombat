@@ -1,0 +1,22 @@
+// На этом уровне герою не нужно сражаться.
+// Прикажи своим лучникам стрелять во врагов с наибольшим уровнем здоровья!
+
+while(true) {
+    var maxHeal = 0;
+    var target = null; 
+    var enemies = hero.findEnemies();
+    for(var i =0; i < enemies.length; i++){
+        var enemy = enemies[i];
+        if (enemy.health > maxHeal) {
+            target = enemy;
+            maxHeal = enemy.health;      
+        }
+    }
+    var friends = hero.findFriends();
+    for (var i = 0; i < friends.length; i++){
+        var friend = friends[i];
+        if (target) {
+            hero.command(friend, "attack", target);
+        }
+        }
+}
