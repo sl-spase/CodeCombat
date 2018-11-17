@@ -1,0 +1,116 @@
+var twoPi = 2 * Math.PI;
+
+// Вот несколько функций для рисования фигур:
+function degreesToRadians(degrees) {
+    return (degrees/360)*twoPi;
+}
+
+function drawPolyStars(center, radius, sides, skips, startAngle) {
+    hero.toggleFlowers(false);
+    var angle = startAngle;
+    var x = center.x;
+    var y = center.y;
+    var hoops = skips + 1;
+    var stepAngle = hoops * (twoPi / sides);
+    if(skips !== 0 && (sides % hoops) === 0) {
+        hoops = skips;
+    }
+    var endAngle = (twoPi * hoops) + startAngle;
+    while(angle <= endAngle) {
+        var newX = x + radius * Math.cos(angle);
+        var newY = y + radius * Math.sin(angle);
+        hero.moveXY(newX, newY);
+        hero.toggleFlowers(true);
+        angle += stepAngle;
+    }
+}
+
+function drawStar(center, radius, sides, skips, startAngle) {
+    var skipsPlusOne = skips + 1;
+    if ((sides/skipsPlusOne) != 1 && (sides%skipsPlusOne) === 0) {
+        var index = skips;
+        while(index >= 0) {
+            var angle = startAngle + index * (twoPi / sides);
+            drawPolyStars(center, radius, sides, skips, angle);
+            index -= 1;
+        }
+    } else {
+        drawPolyStars(center, radius, sides, skips, startAngle);
+    }
+}
+
+function drawPolygon(center, radius, sides, startAngle) {
+    drawPolyStars(center, radius, sides, 0, startAngle);
+}
+
+function drawSpokes(center, radius, sides, startAngle) {
+    var x = center.x;
+    var y = center.y;
+    var endAngle = twoPi + startAngle;
+    var stepAngle = twoPi / sides;
+    var angle = startAngle;
+    while(angle < endAngle) {
+        var newX = x + radius * Math.cos(angle);
+        var newY = y + radius * Math.sin(angle);
+        if((hero.pos.x|0) == (x|0) && (hero.pos.y|0) == (y|0)) {
+            hero.toggleFlowers(true);
+            hero.moveXY(newX, newY);
+        } else {
+            hero.toggleFlowers(false);
+            hero.moveXY(newX, newY);
+            hero.toggleFlowers(true);
+            hero.moveXY(x, y);
+        }
+        hero.toggleFlowers(false);
+        angle += stepAngle;
+    }
+}
+
+function drawSpiral(center, size, loopNum, startAngle) {
+    var newX, x = center.x;
+    var newY, y = center.y;
+    hero.toggleFlowers(false);
+    hero.moveXY(x, y);
+    hero.toggleFlowers(true);
+    var steps = size * 2;
+    var direction = Math.sign(loopNum);
+    var stepAngle = twoPi / steps / direction;
+    var loops = direction * loopNum;
+    var stepSize = size / steps / loops;
+    var curSize = 0;
+    var angle = startAngle;
+    var endAngle = (twoPi * loopNum) + startAngle;
+    while(loopNum<0 ? (angle>=endAngle) : (angle<=endAngle)) {
+        newX = x + curSize * Math.cos(angle);
+        newY = y + curSize * Math.sin(angle);
+        hero.moveXY(newX, newY);
+        angle += stepAngle;
+        curSize += stepSize;
+    }
+    newX = x + size * Math.cos(endAngle);
+    newY = y + size * Math.sin(endAngle);
+    hero.moveXY(newX, newY);
+}
+
+var redX = {x: 28, y: 36};
+var whiteX = {x: 60, y: 36};
+var whiteX2 = {'x': 60, 'y': 42};
+// --------------------------------------------------
+
+
+hero.setFlowerColor("random");
+
+drawPolygon(redX, 10, 6, degreesToRadians(90));
+drawSpokes(redX, 10, 3, degreesToRadians(30));
+
+
+
+hero.setFlowerColor("random");
+
+drawStar(whiteX, 6, 7, 3, degreesToRadians(90));
+
+hero.setFlowerColor("random");
+
+drawSpiral(whiteX2, 15,  1, degreesToRadians(-90));
+
+drawSpiral(whiteX2, 15,  -1, degreesToRadians(-90));
