@@ -1,0 +1,19 @@
+while (hero.gold > hero.costOf("soldier")) {
+    hero.summon("soldier");
+}
+    
+var soldiers = hero.findFriends();
+var soldierIndex = 0;
+// Добавь цикл while для командования всеми солдатами.
+while(soldierIndex < soldiers.length) {
+    
+
+var soldier = soldiers[soldierIndex];
+hero.command(soldier, "move", {x: 50, y: 40});
+soldierIndex++;
+}
+hero.wait(5);
+while(true) {
+    hero.move({'x':51, 'y':41});
+}
+// Присоединись к боевым товарищам!
