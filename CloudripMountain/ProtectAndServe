@@ -1,0 +1,35 @@
+// Защищай рабочих и животных!
+// Обороняй эти две позиции:
+var defend = [];
+defend[0] = { x: 98, y: 28 };
+defend[1] = { x: 84, y: 7 };
+//[3] = { x: 60, y: 72 };
+defend[2] = { x: 108, y: 62 };
+var soldiers = [];
+
+var friends = hero.findFriends();
+for(var i=0; i < friends.length; i++) {
+    var friend = friends[i];
+    if(friend.type == "soldier") {
+        soldiers.push(friend);
+    } else {
+        // Обороняй рабочих:
+        defend.push(friend);
+    }
+}
+
+while(true) {
+    for(var i = 0; i < soldiers.length; i++){
+        var soldier = soldiers[i];
+        hero.command(soldier, "defend", defend[i]);
+        }
+        hero.move({x:40, y:70});
+        var enemy = hero.findNearestEnemy();
+        if (enemy) {
+           
+                hero.attack(enemy);
+            
+            
+        }
+        
+}
