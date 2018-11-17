@@ -1,0 +1,29 @@
+function findSoldierOffset(soldiers, i) {
+    var soldier = soldiers[i];
+    var angle = i * 360 / soldiers.length;
+    return radialToCartesian(5, angle);
+}
+
+// Эта функция производит вычисление местоположения солдата.
+function radialToCartesian(radius, degrees) {
+    var radians = Math.PI / 180 * degrees;
+    var xOffset = radius * Math.cos(radians);
+    var yOffset = radius * Math.sin(radians);
+    return {x: xOffset, y: yOffset};
+}
+
+var peasant = hero.findByType("peasant")[0];
+var soldiers = hero.findByType("soldier");
+// Используй `findByType`, чтобы сформировать массив солдат.
+while(true) {
+    // Используй цикл `for` для перебора массива солдат.
+for (var i = 0; i < soldiers.length; i++){
+    var soldier = soldiers[i];
+    var offset = findSoldierOffset(soldiers, i);
+    var posX = offset.x + peasant.pos.x;
+    var posY = offset.y + peasant.pos.y;
+    hero.command(soldier, "move", {x:posX, y:posY});
+    }
+   
+    hero.move({x: hero.pos.x + 0.2, y: hero.pos.y});
+}
