@@ -1,0 +1,24 @@
+hero.say("Я должен собирать монеты");
+while(hero.time < 20) {
+    var item = hero.findNearestItem();
+    if (item) {
+        var dist = hero.distanceTo(item);
+        if (hero.isReady("jump") && dist > 15) {
+            hero.jumpTo(item.pos);
+        }
+        else {
+            hero.move(item.pos);
+        }
+    }
+}
+
+hero.say("Пора делать ноги");
+while(hero.pos.x > 16) {
+    // Беги за ограду
+   // hero.say("Пора делать ноги");
+    hero.move({"x":13,"y":37});
+    
+}
+
+
+hero.buildXY("fence", 21, 37);
