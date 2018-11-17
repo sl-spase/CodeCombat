@@ -1,0 +1,22 @@
+while(hero.gold <= 80) {
+    var gold = hero.findNearestItem();
+    hero.move(gold.pos);
+}
+// Построй 4 солдата-приманки
+for(var i = 0; i < 4; i++){
+    hero.summon("soldier");
+}
+// Отправь своих солдат на позиции
+var points = [];
+points[0] = { x: 13, y: 73 };
+points[1] = { x: 51, y: 73 };
+points[2] = { x: 51, y: 53 };
+points[3] = { x: 90, y: 52 };
+var friends = hero.findFriends();
+
+
+for(var i = 0; i < 4; i++){
+    var friend = friends[i];
+    var point = points[i];
+    hero.command(friend, "move", point);
+    }
