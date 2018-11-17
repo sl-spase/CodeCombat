@@ -1,0 +1,25 @@
+// Собери монеты, чтобы призвать солдат и атаковать ими врагов.
+
+while(true) {
+    // Переходи к ближайшей монете.
+    // Используй `move` вместо `moveXY`, чтобы управлять непрерывно.
+    var item = hero.findNearestItem();
+    if (item) {
+        hero.move(item.pos);    
+    }    
+   // hero.say("Мне нужны монеты!");
+    if (hero.gold > hero.costOf("soldier")) {
+        //hero.say("Тут я должен кого-нибудь призвать!");
+        hero.summon("soldier");
+    }
+    var enemy = hero.findNearest(hero.findEnemies());
+    if (enemy) { 
+        var soldiers = hero.findFriends();
+        var soldierIndex = 0;
+        while(soldierIndex < soldiers.length) {
+            var soldier = soldiers[soldierIndex];
+            hero.command(soldier, "attack", enemy);
+            soldierIndex++;
+        }
+    }
+}
