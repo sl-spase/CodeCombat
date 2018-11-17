@@ -1,0 +1,14 @@
+hero.buildXY("fire-trap", 64, 44);
+hero.moveXY(72, 9);
+hero.wait(2);
+while(true) {
+    var coins = hero.findNearest(hero.findItems());
+    if (coins) {
+        hero.move(coins.pos);
+    }
+    else {
+        hero.move({'x':60, 'y':9});
+    }
+}
+
+
