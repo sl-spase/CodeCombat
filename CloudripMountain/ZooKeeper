@@ -1,0 +1,33 @@
+// Защити клетку.
+// Поставь солдата на каждую отметку Х.
+var points = [];
+points[0] = {x: 33, y: 42};
+points[1] = {x: 47, y: 42};
+points[2] = {x: 33, y: 26};
+points[3] = {x: 47, y: 26};
+
+// Собери 80 золота.
+while(hero.gold <= 80) {
+    var item = hero.findNearestItem();
+    hero.move(item.pos);
+}
+// Призови четырёх солдат.
+for(var i=0; i < 4; i++) {
+    hero.summon("soldier");
+}
+
+// Отправь своих солдат на позиции.
+while(true) {
+    var friends = hero.findFriends();
+    for(var j=0; j < friends.length; j++) {
+        var point = points[j];
+        var friend = friends[j];
+        var enemy = friend.findNearestEnemy();
+        if(enemy && enemy.team == "ogres" && friend.distanceTo(enemy) < 5) { 
+            hero.command(friend, "attack", enemy);
+        } else {
+            hero.command(friend, "move", point);
+           
+        }
+    }
+}
