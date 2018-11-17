@@ -1,0 +1,28 @@
+while(true) {
+    // Собирай золото.
+    var items = hero.findNearest(hero.findItems());
+    if (items && hero.gold <= 20) {
+        hero.move(items.pos);
+    }
+    // Если золота достаточно, призови солдата.
+    if (hero.gold >= 20) {
+        hero.summon("soldier");
+    }
+    // При помощи цикла `for` приказывай  каждому солдату.
+    var friends = hero.findFriends();
+    for(var friendIndex = 0; friendIndex < friends.length; friendIndex++) {
+        var friend = friends[friendIndex];
+        if(friend.type == "soldier") {
+            var enemy = friend.findNearestEnemy();
+            // Если видишь врага, прикажи атаковать.
+            // Если нет, прикажи следовать в правую часть карты.
+            if (enemy) {
+                hero.command(friend, "attack", enemy);
+            }
+            else {
+                var target = ({'x':77, 'y': 45});
+                hero.command(friend, "move", target);
+            }
+        }
+    }
+}
