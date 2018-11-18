@@ -1,0 +1,20 @@
+// Ты можешь использовать findNearestEnemy() для своих солдат, чтобы получить их ближайшего врага, а не твоего.
+while (true) {
+    var friends = hero.findFriends();
+    
+    // Используй цикл for и для каждого друга:
+    for(var i = 0; i < friends.length; i++){
+        var friend = friends[i];
+        var enemy = friend.findNearestEnemy();
+        if (enemy) {
+            hero.command(friend, "attack", enemy);
+        }
+        else {
+          var target = ({x:friend.pos.x + 0.2, y:friend.pos.y});
+          //friend.moveXY(friend.pos.x +1 , friend.pos.y);
+          hero.command(friend, "move", target);
+        }
+        }
+        // Если они видят врага, тогда прикажи атаковать.
+        hero.moveXY(78, 47); 
+}
