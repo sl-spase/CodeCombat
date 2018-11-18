@@ -1,0 +1,59 @@
+// Огры будут пытаться убить вашего оленя!
+// Удерживайте ваших лучником на месте, призывая солдатов атаковать.
+
+hero.pickUpCoin = function() {
+    // Соберите монеты.
+    hero.move((hero.findNearest(hero.findItems())).pos);
+};
+
+hero.summonTroops = function() {
+    // Призовите солдат если у Вас есть золото.
+    if (hero.gold>hero.costOf("soldier")){
+        hero.summon("soldier");
+    }
+};
+
+// У этой функции есть аргумент названный солдатом.
+// Аргументы похожи на переменные.
+// Стоимость аргумента определена, когда вызвана функцуя.
+hero.commandSoldier = function(soldier) {
+    // Солдаты должны атаковать противника.
+    if (soldier.health>50){
+        var enemy = soldier.findNearestEnemy();
+        if (enemy){
+            hero.command(soldier, "attack", enemy);
+        }
+    } else {
+        hero.command(soldier, "move", {x:26,y:26});
+    }    
+};
+
+// Напишите функцию commandArcher что бы сказать своим лучникам что делать!
+// Она должна принимать один аргумент, который будет представлять лучника переданного функции при вызове.
+// Лучники должны атаковать врагов, только если они ближе 25 метров, иначе, ждать на своих позициях.
+hero.commandArcher = function(archer) {
+    var enemy = archer.findNearestEnemy();
+    if (enemy && archer.distanceTo(enemy) < 35) {
+        hero.command(archer, "attack", enemy);
+    }
+    else {
+        hero.command(archer, "move", archer.pos);    
+    }
+    
+};
+
+while(true) {
+    hero.pickUpCoin();
+    hero.summonTroops();
+    var friends = hero.findFriends();
+    for(var i=0; i < friends.length; i++) {
+        var friend = friends[i];
+        if(friend.type == "soldier") {
+            // This friend will be assigned to the variable soldier in commandSoldier
+            hero.commandSoldier(friend);
+        } else if(friend.type == "archer") {
+            // Уверенно командуйте Вашими лучниками.
+            hero.commandArcher(friend);
+        }
+    }
+}
