@@ -1,0 +1,14 @@
+while(true) {
+var flag1 = hero.findFlag("green");
+var flag2 = hero.findFlag("black");
+if (flag1) {
+    hero.toggleFlowers(false);
+    hero.move(flag1.pos);
+    hero.pickUpFlag(flag1);
+}
+if (flag2) {
+    hero.toggleFlowers(true);
+    hero.move(flag2.pos);
+    hero.pickUpFlag(flag2);
+}
+}
