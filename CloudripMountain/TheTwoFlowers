@@ -1,0 +1,38 @@
+function summonSoldiers() {
+    if (hero.gold >= hero.costOf("soldier")) {
+        hero.summon("soldier");
+    }
+}
+var peasant = hero.findByType("peasant")[0];
+function commandSoldiers(){
+    
+    var soldiers = hero.findByType("soldier");
+    for (var i = 0; i < soldiers.length; i++) {
+         var soldier = soldiers[i];
+         hero.command(soldier, "defend", peasant);
+    }
+}
+
+// Определи функцию: `pickUpNearestCoin`
+function pickUpNearestCoin(){
+    var items = hero.findItems();
+    var nearestCoin = hero.findNearest(items);
+   // hero.move(nearestCoin.pos);
+}
+function attack(){
+    var e = hero.findNearestEnemy();
+   if (e) {
+    if (e && hero.isReady("cleave")) {
+        hero.cleave(e);
+    }
+    else {
+        hero.attack(e);
+    }
+    }
+}
+while(true) {
+    summonSoldiers();
+    commandSoldiers();
+    pickUpNearestCoin();
+    attack();
+}
