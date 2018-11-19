@@ -1,0 +1,29 @@
+// Призови по солдату на каждого огра к югу от тебя!
+// Не подсчитывай огров на севере!
+
+// Прими массив юнитов в качестве параметра.
+// Возвращай только юниты к югу от героя.
+function findSouthernUnits(units) {
+    var southernUnits = [];
+    for(var i=0; i < units.length; i++) {
+        var unit = units[i];
+        if(unit.pos.y < hero.pos.y) {
+            // Добавь юнита в массив.: push()
+            southernUnits.push(unit);
+        }
+    }
+    return southernUnits;
+}
+
+while(true) {
+    var friends = hero.findFriends();
+    var enemies = hero.findEnemies();
+    // Используй `findSouthernUnits`, чтобы получить врагов на юге.
+    findSouthernUnits(enemies);
+    // Если огров на юге больше, чем твоих друзей.
+    if (findSouthernUnits(enemies).length > friends.length) {
+        hero.summon("soldier");
+    }
+        // Затем призови очередного солдата ("soldier").
+        
+}
