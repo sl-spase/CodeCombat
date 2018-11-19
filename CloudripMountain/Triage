@@ -1,0 +1,30 @@
+// Рассортируй ранненых пациентов.
+
+var doctor = hero.findByType("paladin")[0];
+var mage = hero.findByType("pixie")[0];
+var helper = hero.findByType("peasant")[0];
+var soldiers = hero.findByType("soldier");
+
+// Создай массив для пациентов.
+var doctorPatients = [];
+var magePatients = [];
+var helperPatients = [];
+
+// Перебери всех солдат:
+for(var i=0; i < soldiers.length; i++) {
+    var soldier = soldiers[i];
+    if(soldier.maxSpeed < 6) {
+        magePatients.push(soldier);
+    }   
+    else if(soldier.health < soldier.maxHealth / 2){
+        doctorPatients.push(soldier);
+        }       
+        else {
+            helperPatients.push(soldier);
+        }
+}
+
+// Теперь назначь списки пациентов соответствующим медикам.
+mage.patients = magePatients;
+doctor.patients = doctorPatients;
+helper.patients = helperPatients;
