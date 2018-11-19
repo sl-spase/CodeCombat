@@ -1,0 +1,29 @@
+// Целое стадо яков!
+// Если ты планируешь выжить, то научись фильтровать яков...
+
+function removeByType(enemies, excludedType) {
+    var tempArray = [];
+    // Проверь тип каждого врага, не равен ли он `excludedType`.
+    for(var i = 0; i < enemies.length; i++) {
+        // Если нет, добавь (`push`) к списку.
+        var enemy = enemies[i];
+        if (enemy.type != excludedType) {
+            tempArray.push(enemy);
+        }
+    }
+    return tempArray;
+}
+
+
+while(true) {
+    // Найди врагов!
+    var enemies = hero.findEnemies();
+    // Убери этих противных яков.
+    enemies = removeByType(enemies, "sand-yak");
+    var enemy = hero.findNearest(enemies);
+    
+    // Теперь... убери (`remove`) тех врагов.
+    if(enemy) {
+        hero.attack(enemy);
+    }
+}
