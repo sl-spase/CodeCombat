@@ -1,0 +1,42 @@
+// Охоться на 4 яков. Выбирай только самых маленьких.
+// Имена небольших яков содержат подстроку "bos".
+
+// Эта функция проверяет, содержится ли подстрока в слове.
+function isSubstring(word, substring) {
+    // Мы перебираем только начальные индексы.
+    var rightEdge = word.length - substring.length;
+    // Перебери индексы слова.
+    for (var i = 0; i <= rightEdge; i++) {
+        // Для каждого из них пробегись по подстроке.
+        for (var j = 0; j < substring.length; j++) {
+            // Используй смещение для индексов слова.
+            var shiftedIndex = i + j;
+            // Если буквы не совпадают:
+            if (word[shiftedIndex] != substring[j]) {
+                // Проверь следующий начальный индекс.
+                break;
+            }
+            // Это была последняя буква в подстроке:
+            if (j == substring.length - 1) {
+                // Подстрока имеется в слове.
+                return true;
+            }
+        }
+    }
+    // Мы не нашли подстроки в слове.
+    return false;
+}
+
+// Перебери всех врагов.
+var enemies = hero.findEnemies();
+for (var e = 0; e < enemies.length; e++) {
+    var enemy = enemies[e];
+    // Используй функцию `isSubstring` для проверки
+    // Если имя врага (id) содержит "bos":
+    if (isSubstring(enemy.id, "bos")){
+        while(enemy.health > 0) {        
+            hero.attack(enemy.id);    
+        }     
+    }
+    }
+
