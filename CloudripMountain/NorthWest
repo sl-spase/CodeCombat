@@ -1,0 +1,50 @@
+// Твой питомец должен найти и принести герою зелье.
+
+// Функция проверяет, присутствует ли слово в тексте.
+function wordInText(text, word) {
+    // Перебери все символы в тексте.
+    for (var i = 0; i <= text.length - word.length; i++) {
+        // Для каждого из них перебери все символы в слове.
+        for (var j = 0; j < word.length; j++) {
+            // Сохрани смещённый индекс `i + j`.
+            var shiftedIndex = i + j;
+            // Если символ внутри смещённого индекса
+            // не равен символу в слове по индексу `j`
+            if (text[shiftedIndex] != word[j]) {
+                break;
+            }
+                // Прерви цикл.
+            if (j == word.length - 1) {
+                return true;
+                }
+            // Если `j` равно индексу последней буквы в слове.
+            
+                // Значит слово присутствует в тексте.
+                // Возврат true.
+                
+        }
+    }
+    // Слово в тексте не найдено. Возврат false.
+    return false;
+}
+
+// Следуй указанием гидов.
+function onHear(event) {
+    // Если во фразе содержится "west", питомцу надо бежать влево.
+    if (wordInText(event.message, "west")) {
+        pet.moveXY(pet.pos.x - 28, pet.pos.y);
+    }
+    // Если во фразе содержится "north", питомцу надо бежать вверх.
+    else if (wordInText(event.message, "north")) {
+        pet.moveXY(pet.pos.x, pet.pos.y + 24);
+    } 
+    // Иначе питомец должен принести зелье.
+    else {
+        var potion = pet.findNearestByType("potion");
+        if (potion) {
+            pet.fetch(potion);
+        }
+    }
+}
+
+pet.on("hear", onHear);
