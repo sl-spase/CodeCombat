@@ -1,0 +1,41 @@
+// Ты должен победить огров
+// Но они используют чёрную магию!
+// Только солдаты-горцы обладают иммунитетом.
+// Найди горцев, их имена всегда содержат "mac"
+
+var highlanderName = "mac";
+
+// Эта функция должна найти подстроку в слове:
+function wordInString(string, word) {
+    var lenString = string.length;
+    var lenWord = word.length;
+    // Пройди индексом (i) от 0 до (lenString - lenWord)
+    for(var i = 0; i <= string.length - word.length; i++){
+        // Для каждого из них пройдись индексом (j) до конца слова
+        for(var j = 0; j < word.length; j++){   
+            // Если буква [i + j] строки не равна букве [j] слова, прерви (`break`) цикл
+            var shift = i + j;
+         if (string[shift] != word[j]) {
+         break;
+         }    
+            // Если [j] - последняя буква слова (j == lenWord - 1), возврати True true.
+        if (j == word.length - 1) {
+            return true;  
+        }    
+    // Если цикл закончился, то слово не найдено. Возврати False.
+        }    
+    }
+    return false;
+}
+
+// Посмотри на своих солдат и выбери только горцев.
+var soldiers = hero.findFriends();
+for (var i = 0; i < soldiers.length; i++) {
+    var soldier = soldiers[i];
+    if (wordInString(soldier.id, highlanderName)) {
+        hero.say(soldier.id + " be ready.");
+    }
+}
+
+// 
+hero.say("ATTACK!!!");
