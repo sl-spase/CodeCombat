@@ -1,0 +1,31 @@
+// Уничтожь 5 робобомб. Некоторые из них старые и безопасные.
+// Старые (безопасные) бомбы имеют определённую букву в своих идентификаторах.
+
+// Эта функция проверяет, есть ли буква searchLetter в строке searchWord.
+function isLetterInWord(searchWord, searchLetter) {
+    // Закончи функцию.
+    for (var i = 0; i < searchWord.length; i++){
+        if (searchWord[i] == searchLetter) {
+            return true;
+        }
+        }
+    return false;
+}
+
+// Инженер знает, как помечены старые роботы.
+var engineer = hero.findFriends()[0];
+var safeLetter = engineer.safeLetter;
+
+var enemies = hero.findEnemies();
+for(var enIndex = 0; enIndex < enemies.length; enIndex++) {
+    var enemy = enemies[enIndex];
+    if(isLetterInWord(enemy.id, safeLetter)) {
+        // Уничтожь врага, если это безопасно.
+        while (enemy.health > 0) {
+            hero.attack(enemy);
+           // hero.cast("slow", enemy);
+           // hero.cast("shockwave", enemy);
+            //hero.cast("chain-lightning", enemy);
+        }
+    }
+}
