@@ -1,0 +1,20 @@
+// Ты должен найти сокровище.
+
+// Эта функция должна возвратить индекс (порядковый номер) буквы в слове:
+function letterIndex(word, letter) {
+    // Перебери каждую букву слова с помощью индекса.
+    for(var i = 0; i < word.length; i++){
+        if (word[i] == letter) {
+            return i;
+        }
+    }    
+    // Если нет, возвращаем значение по умолчанию.
+    return -1;
+}
+
+var ogreLetter = "z";
+var shaman = hero.findByType("thoktar")[0];
+
+// Найди индекс и используй его для нахождения сокровища.
+var chestIndex = letterIndex(shaman.id, ogreLetter);
+hero.moveXY(16 + chestIndex * 8, 36);
