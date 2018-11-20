@@ -10,7 +10,7 @@ function wordInString(string, word) {
     var lenString = string.length;
     var lenWord = word.length;
     // Пройди индексом (i) от 0 до (lenString - lenWord)
-    for(var i = 0; i <= string.length - word.length; i++){
+    for(var i = 0; i <= lenString - lenWord; i++){
         // Для каждого из них пройдись индексом (j) до конца слова
         for(var j = 0; j < word.length; j++){   
             // Если буква [i + j] строки не равна букве [j] слова, прерви (`break`) цикл
