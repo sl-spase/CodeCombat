@@ -1,0 +1,35 @@
+// Научись использовать остаток от деления для перебора массива.
+
+// При заполнении массива выбери типы и порядок юнитов, которые хочешь призвать.
+var summonTypes = ["soldier","archer","soldier","archer","soldier","archer","soldier","archer"];
+var defendPX = [{"x": 34, "y": 54},{"x": 34, "y": 16 }];
+var defendPY = [{"x": 34, "y": 36}];
+function summonTroops() {
+    // Используй `%`, чтобы зациклить массив `summonTypes` на основе `this.built.length`
+    //var type = summonTypes[???];
+    //hero.say("I should summon troops!");
+    var type = summonTypes[hero.built.length % summonTypes.length];
+    if(hero.gold >= hero.costOf(type)) {
+        hero.summon(type);
+    }
+}
+function heroCommand(){
+    var friends = hero.findFriends();
+    for(var i = 0; i < friends.length; i++){
+        var friend = friends[i];   
+        if (friend.type != "palisade") {
+            if (enemy) {
+                hero.command(friend, "attack", enemy);        
+            }  
+        }
+    }
+     
+}
+while(true) {
+    var enemy = hero.findNearestEnemy();
+    var item = hero.findNearest(hero.findItems());
+    hero.move(item.pos);
+    summonTroops();   
+    heroCommand();
+}
+
