@@ -1,0 +1,41 @@
+// Собери все монеты!
+
+function commandPeasant(peasant, coins) {
+    // Найди ближайшую монету для крестьянина `peasant` из массива монет `coins`,
+    for (var i = 0; i < coins.length; i++){
+        var coin = coins[i];
+        hero.command(peasant, "move", coin.pos);
+        }
+    // Прикажи крестьянину двигаться "move" к ближайшей монете.
+    
+}
+
+var friends = hero.findFriends();
+var peasants = {
+    "Aurum":friends[0],
+    "Argentum":friends[1],
+    "Cuprum":friends[2]
+};
+
+while(true) {
+    var items = hero.findItems();
+    var goldCoins = [];
+    var silverCoins = [];
+    var bronzeCoins = [];
+    for(var i = 0; i < items.length; i++) {
+        var item = items[i];
+        if(item.value == 3) {
+            goldCoins.push(item);
+        }
+        // Распредели бронзовые и серебряные монеты в соответствующие массивы.
+        if(item.value == 2){
+            silverCoins.push(item);
+            }
+        if(item.value == 1) {
+            bronzeCoins.push(item);
+        }
+    }
+    commandPeasant(peasants.Aurum, goldCoins);
+    commandPeasant(peasants.Argentum, silverCoins);
+    commandPeasant(peasants.Cuprum, bronzeCoins);
+}
