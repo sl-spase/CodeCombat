@@ -1,0 +1,27 @@
+// Ведьмы огров приготовили для тебя неприятные сюрпризы.
+// Определи функцию `chooseTarget` с аргументом `friend`
+// Возвращает цель для атаки с учётом типа друга.
+// Солдаты должны атаковать ведьм, лучники атакуют ближайшего врага.
+function chooseTarget(friend){
+    if (friend.type == "archer") {
+        var enemy = friend.findNearest(friend.findEnemies());
+        return enemy;
+    }
+    else {
+        var witch = hero.findByType("witch");
+        enemy = friend.findNearest(witch);
+        return enemy;
+    }
+    }
+
+while(true) {
+    var friends = hero.findFriends();
+    for(var i=0; i < friends.length; i++) {
+        // Используй функцию `chooseTarget` для принятия решения об атаке.
+        var friend = friends[i];
+        var target = chooseTarget(friend);
+        if (target) {
+            hero.command(friend, "attack", target);
+        }
+    }
+}
