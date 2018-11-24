@@ -1,0 +1,53 @@
+// Этот уровень считается ОЧЕНЬ сложным! Чтобы одолеть его, тебе понадобится хорошая стратегия или эпичное барахлишко!
+
+// Найди и убей йети, чтобы добыть его кровь для ритуала.
+// Возможно, тебе стоит собрать монеты, которые оставит йети. Они пригодятся, чтобы вызвать подкрепление.
+// Встань на ритуальный камень (красная отметка Х) для призвания.
+// Теперь всё просто: нужно пережить нашествие орд нежити.
+hero.moveXY(57, 31);
+while(hero.pos.y != 40 && hero.pos.x != 19) {
+    
+    var enemy = hero.findNearestEnemy();    
+    var item = hero.findNearestItem();
+    hero.move({'x':19, 'y':40});    
+    hero.attack(enemy);
+    if (item) {
+        hero.moveXY(item.pos.x, item.pos.y);
+    }
+}
+var summonTypes = ["archer", "griffin-rider"];
+for(var i = 0; i < 10; i++){
+    var type = summonTypes[hero.built.length % summonTypes.length];
+    if(hero.gold >= hero.costOf(type)) {
+    
+        hero.summon(type);
+    }
+}
+    hero.move({x:50, y:42});
+while(true) {
+    var enemy = hero.findNearestEnemy();
+    var soldiers = hero.findFriends();
+    for(var i = 0; i < soldiers.length; i++){
+        var enemy = hero.findNearestEnemy();     
+        var soldier = soldiers[i];
+        hero.command(soldier, "defend", hero);
+        }
+        //var dist = hero.distanceTo(enemy);
+    if (enemy) {
+        
+        var dist = hero.distanceTo(enemy);
+        if (hero.isReady("shield") && hero.health < 1500 && hero.health > 950) {
+            hero.shield();
+            
+        }
+        else {
+            if (enemy) {
+                hero.attack(enemy);
+            }
+            else {
+                hero.move({x:52, y:45});
+            }
+            
+        }
+    }
+}
