@@ -1,0 +1,98 @@
+// Цель: построй три ряда из 9 ловушек.
+
+// Возвращает "retreat", "attack", "start-next-trap-column" или "build-next-trap-in-column"
+function chooseStrategy() {
+    var enemies = hero.findEnemies();
+   // var enemy = enemies[i];
+    // В случае превосходящих сил противника верни "retreat" (отступление).
+    if(enemies.length > 20) {
+        return "retreat";
+    } 
+    // Если есть несколько огров, верни "attack" (атаковать).
+    if (enemies.length > 0) {
+        return "attack";
+    }
+    // Используй x % 9 === 0 для проверки делимости x на 9.
+    // Используй `this.built.length`, чтобы определить количество построенных ловушек.
+    // Если ты закончил колонку из 9 ловушек, верни "start-next-trap-column" (начать новую колонку).
+    
+    if (hero.built.length % 9 === 0) {
+        return "start-next-trap-column";
+    }
+    // Иначе верни "build-next-trap-in-column" (построить следующую ловушку в ряду).
+    else {
+        return "build-next-trap-in-column";
+    }
+}
+
+var trapsInColumn = 9;
+var startX = 40;
+var columnX = startX;
+
+// Построй следующую ловушку в ряду на правильном месте.
+function buildNextTrapInColumn(columnX,numTraps) {
+    // Измени `newY` на использование `%`, чтобы зациклиться и строить `trapsInColumn` (9) ловушек в ряду.
+    var newY = 7 * (numTraps % 9) + 10; // ∆ Измени это, используя `% 9`!
+    if (hero.pos.y < newY) {
+        hero.move({"x": columnX - 5, "y": newY});
+    } else {
+        buildTrap(columnX,newY);
+    }
+}
+
+// Начни новую колонку ловушек.
+function startNextTrapColumn(columnX, numTraps) {
+    var newX = startX - (Math.floor(numTraps / trapsInColumn) * 6);
+    if (hero.pos.y > 10) {
+        hero.move({"x": newX - 5, "y": 10});
+        return columnX;
+    } else {
+        buildTrap(newX,10);
+        return newX;
+    }
+}
+
+function buildTrap(x, y) {
+    hero.buildXY("fire-trap", x, y);
+}
+
+
+function commandAttack() {
+    var friends = hero.findFriends();
+    for (var i = 0; i < friends.length; i++){
+    var friend = friends[i];
+    var enemy = friend.findNearestEnemy();
+    if (enemy) {
+        hero.command(friend, "attack", enemy);    
+    }
+    // Пусть твои всадники на гриффинах отгонят атакующих.
+    
+    }
+}
+
+function commandRetreat() {
+    hero.say("Retreat!");
+    // Ты вместе со всадниками отступаешь в безопасную область за ловушками.
+    var friends = hero.findFriends();
+    for(var i = 0; i < friends.length; i++){
+        var friend = friends[i];
+        var redx = ({x: 4, y: 42});
+       // hero.command(friend, 'move', redx);
+        hero.move(redx);
+        }
+}
+
+
+while(true) {
+    var strategy = chooseStrategy();
+    if(strategy == "attack") {
+        commandAttack();
+    } else if(strategy == "build-next-trap-in-column") {
+        buildNextTrapInColumn(columnX, hero.built.length);
+    } else if(strategy == "start-next-trap-column") {
+        columnX = startNextTrapColumn(columnX, hero.built.length);
+    } else if(strategy == "retreat") {
+        commandRetreat();
+    }
+}
+
