@@ -71,14 +71,13 @@ function commandAttack() {
 }
 
 function commandRetreat() {
-    hero.say("Retreat!");
+   // hero.say("Retreat!");
     // Ты вместе со всадниками отступаешь в безопасную область за ловушками.
     var friends = hero.findFriends();
     for(var i = 0; i < friends.length; i++){
         var friend = friends[i];
         var redx = ({x: 4, y: 42});
-       // hero.command(friend, 'move', redx);
-        hero.move(redx);
+        hero.command(friend, "move", redx);
         }
 }
 
@@ -93,6 +92,7 @@ while(true) {
         columnX = startNextTrapColumn(columnX, hero.built.length);
     } else if(strategy == "retreat") {
         commandRetreat();
+        hero.move({x: 4, y: 42});
     }
 }
 
