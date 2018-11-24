@@ -1,0 +1,60 @@
+//Oliver code
+// The goal is to survive for 30 seconds, and keep the mines intact for at least 30 seconds.
+function chooseStrategy() {
+    var enemies = hero.findEnemies();
+    // If you can summon a griffin-rider, return "griffin-rider"
+    if (hero.gold >= hero.costOf("griffin-rider")) {
+        return "griffin-rider";
+    }
+    // If there is a fangrider on your side of the mines, return "fight-back"
+    var fangriders = hero.findByType("fangrider");
+    for (var i = 0; i < fangriders.length; i++) {
+        var fangrider = fangriders[i];
+        if (fangrider.pos.x < 38) {
+            return "fight-back";
+        }
+    }
+    // Otherwise, return "collect-coins"
+    return "collect-coins";
+}
+function commandAttack() {
+    // Command your griffin riders to attack ogres.
+    var griffins = hero.findFriends();
+    var enemies = hero.findEnemies();
+    for (var i = 0; i < griffins.length; i++) {
+        var griffin = griffins[i];
+        var enemy = enemies[i];
+        if (enemy) {
+            if (enemy.type != "fangrider") {
+                hero.command(griffin, "attack", enemy);
+            }
+        }
+    }
+}
+
+function pickUpCoin() {
+    // Collect coins
+    var item = hero.findNearest(hero.findItems());
+    if (item) {
+        hero.move(item.pos);
+    }
+}
+function heroAttack() {
+    // Your hero should attack fang riders that cross the minefield.
+    var enemy = hero.findNearest(hero.findByType("fangrider"));
+    if (enemy && hero.distanceTo(enemy) < 20) {
+        hero.attack(enemy);
+    }
+}
+while (true) {
+    commandAttack();
+    var strategy = chooseStrategy();
+    // Call a function, depending on what the current strategy is.
+    if (strategy == "griffin-rider") {
+        hero.summon("griffin-rider");
+    } else if (strategy == "fight-back") {
+        heroAttack();
+    } else if (strategy == "collect-coins") {
+        pickUpCoin();
+    }
+}
