@@ -1,0 +1,35 @@
+// Продвигайся через забытую гробницу.
+// Осторожнее, ловушки могут всё испортить!
+
+// Паладин вызвался проложить путь.
+// Скомандуй защищаться от снарядов.
+while(true) {
+    var friends = hero.findFriends();
+    // `findEnemyMissiles` находит все опасные снаряды.
+    var projectiles = hero.findEnemyMissiles();
+    for(var i = 0; i < friends.length; i++) {
+        var friend = friends[i];
+        if(friend.type == "paladin") {
+            // Найди ближайший снаряд:
+            var projectile = friend.findNearest(projectiles);
+            if (projectile && friend.distanceTo(projectile) < 10) {
+                
+                hero.command(friend, "shield");
+                
+            }
+            else {
+                //paladin.move({paladin.pos.x + 1, paladin.pos.y});
+                hero.command(friend, "move", {x:friend.pos.x + 1, y:friend.pos.y});
+            }
+                // Продвигаемся вперёд:
+                
+        } else {
+            // Если не паладин, просто продвигаемся:
+            if (friend.type != "paladin") {
+                hero.command(friend, "move", {x:friend.pos.x + 1, y:friend.pos.y});
+            }
+        }
+    }
+    // Продвинь героя в направлении x:
+    
+}
