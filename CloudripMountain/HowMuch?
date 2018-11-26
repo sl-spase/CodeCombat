@@ -1,0 +1,30 @@
+// Вычисли периметр и площадь сада
+// и заплати справедливую цену.
+
+// Расценки на забор и газон.
+var fencePrice = 3; // за метр.
+var lawnPrice = 2; // за кв. метр.
+// Тебе нужен прораб.
+var foreman = hero.findNearest(hero.findFriends());
+var corners = foreman.corners;
+// Получи информацию о саде.
+var bottomLeft = corners.bottomLeft;
+var topRight = corners.topRight;
+// Вычисли размер сада.
+var width = topRight.x - bottomLeft.x;
+var height = topRight.y - bottomLeft.y;
+// Найди периметр сада (в метрах):
+var perymetr = (width + height) * 2;
+// Используй `fencePrice` для вычисления стоимости забора:
+fencePrice *= perymetr;
+// Найди площадь сада (в кв. метрах):
+var area = width * height;
+// Используй `lawnPrice` для вычисления стоимости газона:
+lawnPrice *= area;
+
+// Общая стоимость складывается из стоимостей забора и газона.
+var totalCost = fencePrice + lawnPrice; // Δ Обнови это итоговой ценой!
+
+hero.say("The total price is " + totalCost);
+// Оплати счёт.
+foreman.bill(totalCost);
