@@ -1,0 +1,60 @@
+// Наступают огры драчуны!
+// Используй ходячего робота, чтобы разобраться с этими врагами.
+// Ходячий робот принимает команды в виде строк.
+// В первой части строки, ты должен записать здоровье врага в троичной форме.
+// Во второй части строки должен быть тип врага в двоичной форме.
+
+function toTernary(number) {
+    // Начни с пустой строки.
+    var string = "";
+    // Затем, пока `number` не равно 0:
+    while(number !== 0) {
+        // Возьмём остаток от деления.
+        var remainder = number % 3;
+        // Это наш метод перебора. 'number' здесь уменьшается.
+        number = (number - remainder) / 3;
+        // Присоедини строку к остатку.
+        string = remainder + string;
+    }
+    // В итоге мы вернём созданную строку.
+    return string;
+}
+
+function toBinary(number) {
+    var string = "";
+    // Снова повторяй эти шаги:
+    while(number !== 0) {
+        var remainder = number % 2;
+        number = (number - remainder) / 2;
+        string = remainder + string;
+    }
+        // Возьми остаток, уменьши число, присоедини строку.
+        
+    // Помни, что двоичная система использует основание 2!
+    
+    return string;
+}
+
+while(true) {
+    var enemies = hero.findEnemies();
+    var dangerous = findMostDangerous(enemies);
+    if(dangerous) {
+        // Форма, в которой робот принимает команды:
+        // ternary(enemyHealth) + " " + binary(enemyType)
+        hero.say(toTernary(dangerous.health) + " " + toBinary(dangerous.type));
+    }
+}
+
+// На этом уровне драчуны более сильны, так как обладают большим здоровьем.
+function findMostDangerous(enemies) {
+    var mostDangerous = null;
+    var mostHealth = -Infinity;
+    for(var i = 0; i < enemies.length; i++) {
+        var enemy = enemies[i];
+        if(enemy.health > mostHealth) {
+            mostDangerous = enemy;
+            mostHealth = enemy.health;
+        }
+    }
+    return mostDangerous;
+}
