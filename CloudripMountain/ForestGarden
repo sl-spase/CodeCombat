@@ -1,0 +1,18 @@
+// Вырасти идеально прямоугольный цветочный забор.
+
+// Используй заданные размеры для цветочного прямоугольника.
+var gardener = hero.findNearest(hero.findFriends());
+var gardenWidth = gardener.gardenWidth;
+var gardenHeight = gardener.gardenHeight;
+// Поставь цветочный забор в начальной позиции.
+hero.toggleFlowers(true);
+var x = hero.pos.x;
+var y = hero.pos.y;
+// Use variables gardenWidth and gardenHeight to get corners' coordinates.
+// Двигайся по очереди к каждому углу и вернись к старту.
+
+hero.moveXY(x + gardenWidth, y);    
+hero.moveXY(x + gardenWidth, y - gardenHeight);  
+hero.moveXY(x, y - gardenHeight);
+hero.moveXY(x, y);
+
