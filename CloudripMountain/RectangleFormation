@@ -1,0 +1,42 @@
+// Выстрой солдат и лучников в прямоугольные построения.
+
+// Дистанция между юнитами.
+var step = 8;
+
+// Сначала выстрой солдат.
+var sergeant = hero.findNearest(hero.findByType("soldier"));
+// Координаты нижнего левого угла.
+var soldierX = 8;
+var soldierY = 8;
+// Длина и ширина построения.
+var width = sergeant.rectWidth;
+var height = sergeant.rectHeight;
+
+for (var x = soldierX; x <= soldierX + width; x += 8) {
+    for (var y = soldierY; y <= soldierY + height; y += 8) {
+        hero.summon("soldier");
+        var lastUnit = hero.built[hero.built.length-1];
+        // Управляй последним юнитом, используя переменные x/y:
+        hero.command(lastUnit, "move", {x:x,y:y});
+    }
+}
+
+// Затем выстрой лучников.
+var sniper = hero.findNearest(hero.findByType("archer"));
+// Координаты нижнего левого угла.
+var archerX1 = 48;
+var archerY1 = 8;
+// Координаты верхнего правого угла.
+var archerX2 = sniper.archerX2;
+var archerY2 = sniper.archerY2;
+
+for (var x = archerX1; x <= archerX2; x += 8) {
+    for (var y = archerY1; y <= archerY2; y += 8) {
+        // Призови лучников.
+         hero.summon("archer");
+        // Найди последний построенный юнит.
+        var lastUnit = hero.built[hero.built.length-1];
+        // Управляй последним юнитом, используя переменные x/y:
+         hero.command(lastUnit, "move", {x:x,y:y});
+    }
+}
