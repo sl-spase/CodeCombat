@@ -1,0 +1,29 @@
+// Построй забор вокруг фермы.
+
+// Возьми координаты противоположных углов.
+var customer = hero.findNearest(hero.findFriends());
+var x1 = customer.leftBottom.x;
+var y1 = customer.leftBottom.y;
+var x2 = customer.rightTop.x;
+var y2 = customer.rightTop.y;
+var step = 4;
+
+// Построим левую сторону.
+for (var y = y2 - step; y >= y1; y -= step) {
+    hero.buildXY("fence", x1, y);
+}
+
+// Построим нижнюю сторону.
+for (var x = x1 + step; x <= x2; x += step) {
+    hero.buildXY("fence", x, y1);
+}
+// Построим правую сторону.
+for (var y = y1 + step; y <= y2; y += step) {
+    hero.buildXY("fence", x2, y);
+}
+// Построим верхнюю сторону.
+for(var x = x2 - step; x >= x1; x -= step){
+    hero.buildXY("fence", x, y2);
+    }
+// Построим левую сторону.
+
