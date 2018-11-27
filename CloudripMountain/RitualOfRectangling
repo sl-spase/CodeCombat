@@ -1,0 +1,48 @@
+// Нам нужно призвать древнего воина на сражение с этим огром!
+// Четыре паладина должны сформировать прямоугольник.
+// Но прямоугольник должен быть с заданными периметром и площадью.
+// Паладины постоянно двигаются, в нужное время скажи им заклинание.
+// Сложно быть точным, достаточно быть приблизительным.
+
+// Функция должна сравнить параметры с точностью 3%.
+function almostEqual(valueA, valueB) {
+    // Проверь, что значение `valueA` больше 0.97 и меньше 1.03 значения `valueB`.
+    if(valueA > 0.97 * valueB && valueA < 1.03 * valueB) {
+        return true;
+    }
+    // По умолчанию, просто проверь на равенство.
+    return valueA === valueB;
+}
+
+// Эта функция должна вычислять периметр:
+function perimeter(side1, side2) {
+    // Периметр определяется суммой 4 сторон:
+    var perimetr = side1 + side1 + side2 + side2;
+    return perimetr;
+}
+
+// Эта функция должна возвращать площадь:
+function area(side1, side2) {
+    // Площадь определяется произведением 2 сторон
+    var varea = side1 * side2;
+    return varea;
+}
+
+
+// Требуемые значения площади и периметра:
+var requiredPerimeter = 104;
+var requiredArea = 660;
+
+// Будем использовать этот юнит как базовый для вычислений:
+var base = hero.findNearest(hero.findFriends());
+
+while (true) {
+    var sideSN = base.distanceTo("Femae");
+    var sideWE = base.distanceTo("Illumina");
+    var currentPerimeter = perimeter(sideSN, sideWE);
+    var currentArea = area(sideSN, sideWE);
+    if (almostEqual(currentArea, requiredArea) && almostEqual(currentPerimeter, requiredPerimeter)) {
+        hero.say("VENITE!");
+        break;
+    }
+}
