@@ -1,0 +1,44 @@
+// Сформируй прямоугольник из юнитов вокруг крестьянина.
+// Тебе понадобится  2 солдата и 2 лучника.
+
+// Эта функция пригодится.
+function summonAndSend(type, x, y) {
+    hero.summon(type);
+    var unit = hero.built[hero.built.length-1];
+    hero.command(unit, "move", {x: x, y: y});
+}
+
+// Прямоугольник должен быть выстроен вокруг крестьянина.
+var centerUnit = hero.findNearest(hero.findFriends());
+// Это центр прямоугольника.
+var center = centerUnit.pos;
+// Также тебе понадобятся высота и ширина.
+var rectWidth = centerUnit.rectWidth;
+var rectHeight = centerUnit.rectHeight;
+
+// Первого солдата отправь в левый нижний угол прямоугольника.
+var leftBottomX = center.x - rectWidth / 2;
+var leftBottomY = center.y - rectHeight / 2;
+summonAndSend("soldier", leftBottomX, leftBottomY);
+
+// И лучника в левый верхний угол.
+var leftTopX = center.x - rectWidth / 2;
+var leftTopY = center.y + rectHeight / 2;
+summonAndSend("archer", leftTopX, leftTopY);
+
+// Призови и отправь солдата в правый верхний угол.
+var rightTopX = center.x + rectWidth / 2;
+var rightTopY = center.y + rectHeight / 2;
+summonAndSend("soldier", rightTopX, rightTopY);
+// Призови и отправь лучника в правый нижний угол.
+var rightBottomX = center.x + rectWidth / 2;
+var rightBottomY = center.y - rectHeight / 2;
+summonAndSend("archer", rightBottomX, rightBottomY);
+// Теперь прячься или сражайся.
+while(true) {
+    var enemy = hero.findNearestEnemy();
+    if (enemy) {
+         hero.attack(enemy);
+    }
+   
+}
