@@ -1,0 +1,51 @@
+// Заверши прямоугольник из паладинов, чтобы защитить деревню.
+
+// Функция находит самый левый юнит:
+function findMostLeft (units) {
+    if (units.length === 0) {
+        return null;
+    }
+    var mostLeft = units[0];
+    for (var i = 0; i < units.length; i++) {
+        var unit = units[i];
+        if (unit.pos.x < mostLeft.pos.x) {
+            mostLeft = unit;
+        }
+    }
+    return mostLeft;
+}
+
+// Функция находит самый нижний юнит:
+function findMostBottom (units) {
+    if (units.length === 0) {
+        return null;
+    }
+    var mostBottom = units[0];
+    for (var i = 0; i < units.length; i++) {
+        var unit = units[i];
+        if (unit.pos.y < mostBottom.pos.y) {
+            mostBottom = unit;
+        }
+    }
+    return mostBottom;
+}
+
+var paladins = hero.findByType("paladin");
+
+// Найди верхнего левого паладина с помощью `findMostLeft`:
+
+var left = findMostLeft(paladins);
+// Найди нижнего правого паладина с помощью `findMostBottom`:
+var bottom = findMostBottom(paladins);
+
+// Используй координату X верхнего левого паладина:
+// и координату Y нижнего правого:
+var posx = left.pos.x;
+var posy = bottom.pos.y;
+// Двигайся на точку {X, Y} с предыдущего шага:
+hero.moveXY(posx,posy);
+//hero.move({x: findMostLeft(paladins).pos.x, y:findMostBottom(paladins).pos.y});
+// Держи щит, пока извергается вулкан:
+while(true) {
+    hero.shield();
+}
