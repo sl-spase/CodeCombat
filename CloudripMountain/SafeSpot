@@ -1,0 +1,43 @@
+// Крикни, чтобы активировать буквы и отправиться к выходу.
+
+// Функция проверяет примерное равенство чисел.
+function almostEqual(n1, n2) {
+    return Math.abs(n1 - n2) <= 0.5;
+}
+
+// Функция проверяет, что все
+// объекты на равном расстоянии от героя.
+function allSameDistance(thangs) {
+    if (thangs.length === 0) {
+        return true;
+    }
+    // Мы можем использовать любой объект как эталон.
+    var etalon = hero.distanceTo(thangs[0]);
+    // Переберём все предметы:
+    for(var i = 0; i < thangs.length; i++){
+        var thang = thangs[i];
+        // Use almostEqual to compare `etalon` and the distance to `unit`.
+        // If they are not equal (almost):
+            if (!almostEqual(etalon, hero.distanceTo(thang))) {
+            return false;
+        }
+    }
+            // Возврат false.
+            return true;
+    // Все одинаковы. Возврат true.
+    
+}
+
+var bombs = hero.findEnemies();
+for (var x = 36; x <= 44; x++) {
+    for (var y = 30; y <= 38; y++) {
+        hero.moveXY(x, y);
+        if (allSameDistance(bombs)) {
+            // Это безопасное место, шуба-дуба!
+            hero.say("HEEEEEEEEEY!!!");
+            hero.moveXY(40, 56);
+        }
+    }
+}
+
+hero.say("Heh. Nothing.");
