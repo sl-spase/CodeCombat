@@ -1,0 +1,34 @@
+// Нам требуются квадратные цветочные ограды вокруг статуй.
+
+// Функция должна сделать квадрат со сторонами определённого размера.
+// вокруг центральной точки  {cx, cy}
+function growSquare(cx, cy, side) {
+    // Двигайся в любой угол квадрата.
+    var width = side/2;
+    hero.moveXY(cx-width, cy-width);
+    // Пора сажать.
+    hero.toggleFlowers(true);
+    // Теперь обойди каждый угол.
+    // Можно поворачивать по часовой стрелке или против неё.    
+    hero.moveXY(cx-width, cy+width);
+    hero.moveXY(cx+width, cy+width);
+    hero.moveXY(cx+width, cy-width);
+    // Не забудь вернуться на первоначальный угол.
+     hero.moveXY(cx-width, cy-width);
+    // Хватит сажать.
+    hero.toggleFlowers(false);
+}
+
+// Смотритель подскажет, где вырастить цветы.
+var keeper = hero.findNearest(hero.findFriends());
+var points = keeper.pointsForWork;
+// Все квадраты должны быть одного размера.
+var squareSize = 8;
+// Нам не нужны лишние цветы.
+hero.toggleFlowers(false);
+
+for (var index = 0; index < points.length; index++) {
+    var pos = points[index];
+    // Не забудь заполнить эту функцию.
+    growSquare(pos.x, pos.y, squareSize);
+}
