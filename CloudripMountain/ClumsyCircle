@@ -1,0 +1,32 @@
+// Найди солдат, нарушающих круг.
+
+// Все солдаты должны быть в круге с радиусом:
+var circleRadius = 20;
+
+// Функция проверяет, находится ли юнит в круге
+// с нужным радиусом и героем в центре.
+function onCircle(unit, radius) {
+    var distance = hero.distanceTo(unit);
+    // Мы используем приближение.
+    var inaccuracy = 2;
+    var minDistance = radius - inaccuracy;
+    var maxDistance = radius + inaccuracy;
+    return distance <= maxDistance && distance >= minDistance;
+}
+
+while(true) {
+    var soldiers = hero.findByType("soldier");
+    for (var index = 0; index < soldiers.length; index++) {
+        var soldier = soldiers[index];
+        // Используй функцию `onCircle`, чтобы определить
+        // что солдат не соблюдает круг:
+        var circle = onCircle(soldier, circleRadius);
+            // Скажи имя солдата, которого надо выгнать:
+            if (circle !== true){
+                 hero.say(soldier);
+            }
+           
+            
+            
+    }
+}
