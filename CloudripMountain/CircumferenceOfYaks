@@ -1,0 +1,21 @@
+// Вычисли длины окружностей кругов яков.
+
+// Первый круг яков.
+var yak1 = hero.findNearestEnemy();
+// Дистанция до яка равна радиусу.
+var radius1 = hero.distanceTo(yak1);
+// Длина окружности вычисляется так:
+var circumference1 = 2 * Math.PI * radius1;
+// Скажи результат.
+hero.say(circumference1);
+
+// Двигайся к следующей отметке.
+hero.moveXY(60, 34);
+// Найди яка из второго круга.
+var yak2 = hero.findNearestEnemy();
+// Найди радиус второй окружности.
+var radius2 = hero.distanceTo(yak2);
+// Вычисли длину второй окружности.
+var circumference2 = 2 * Math.PI * radius2;
+// Скажи (say) результат.
+hero.say(circumference2);
