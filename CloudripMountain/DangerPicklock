@@ -1,0 +1,23 @@
+// Тебе нужно взломать дверь.
+
+// Функция проверяет равенство с 5% погрешностью.
+function almostEqual(a, b) {
+    return Math.abs(a - b) < (b * 0.05);
+}
+
+// У нас есть бомба для двери, но она слабовата.
+var bomb = hero.findByType("robobomb")[0];
+// Волшебники умеют заряжать бомбу.
+var wizards = hero.findByType("wizard");
+// Площадь окружности должна быть равна:
+var chargeArea = bomb.chargeArea;
+while(true) {
+    // Радиус окружности:
+    var radius = bomb.distanceTo(wizards[0]);
+    // Найди текущую площадь окружности.
+    var area = Math.PI * radius * radius;
+    // Если она почти равна `chargeArea`:
+    if (almostEqual(area, chargeArea)) {
+        hero.say("skadysh");
+    }
+}
