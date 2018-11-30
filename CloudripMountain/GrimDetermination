@@ -1,0 +1,64 @@
+// Твоя цель - защитить Рейнальдо.
+
+// Найди паладина с самым низким здоровьем.
+function lowestHealthPaladin() {
+    var lowestHealth = 99999;
+    var lowestFriend = null;
+    var friends = hero.findFriends();
+    for(var f=0; f < friends.length; f++) {
+        var friend = friends[f];
+        if(friend.type != "paladin") { continue; }
+        if(friend.health < lowestHealth && friend.health < friend.maxHealth) {
+            lowestHealth = friend.health;
+            lowestFriend = friend;
+        }
+    }
+    return lowestFriend;
+}
+
+function commandPaladin(paladin) {
+    // Вылечи паладина с низким здоровьем, используя `lowestHealthPaladin()`
+    // Ты можешь использовать `paladin.canCast("heal")` и `command(paladin, "cast", "heal", target)`
+    // Паладины также владеют щитом: `command(paladin, "shield")`
+    // И не забудь, что они тоже умеют атаковать!
+    var lowestH = lowestHealthPaladin();
+    var enemy = paladin.findNearestEnemy();
+    if (lowestH && paladin.canCast("heal")) {
+        hero.command(paladin, "cast", "heal", paladin);
+    }
+    else if(paladin.health < paladin.maxHealth / 2) {
+        hero.command(paladin, "shield");
+    }
+    else {
+        hero.command(paladin, "attack", enemy);    
+    }
+    
+}
+
+function commandFriends() {
+    // Управляй своими союзниками.
+    var friends = hero.findFriends();
+    for(var i=0; i < friends.length; i++) {
+        var friend = friends[i];
+        if(friend.type == "peasant") {
+            var item = friend.findNearestItem();
+            if (item) {
+                hero.command(friend, "move", {x:item.pos.x, y:item.pos.y});    
+            }  
+        } else if(friend.type == "griffin-rider") {
+            var enemy = friend.findNearestEnemy();
+            hero.command(friend, "attack", enemy);
+        } else if(friend.type == "paladin") {
+            commandPaladin(friend);
+        }
+    }
+}
+
+while(true) {
+    if (hero.gold >= hero.costOf("griffin-rider")) {
+                hero.summon("griffin-rider");
+    }
+    commandFriends();
+    // Призывай наездников!
+    
+}
