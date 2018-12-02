@@ -1,0 +1,33 @@
+// Сенику нужна большая приманка для большого бурла!
+// Помоги Сенику найти яка крупнее среднего!
+// Не выбирай слишком глубоко в стаде, или разозлишь их.
+
+// Эта функция должна вернуть средний размер всех яков:
+function averageSize(yaks) {
+    var sum = 0;
+    // Перебери всех яков и просуммируй их размеры.
+    for(var i = 0; i < yaks.length; i++){
+        var yak = yaks[i];
+        sum += yak.size;
+        }
+    return sum / yaks.length;
+}
+
+var yaks = hero.findEnemies();
+var avgSize = averageSize(yaks);
+
+var bestYak = null;
+var closestDist = Infinity;
+for(var i = 0; i < yaks.length; i++) {
+    var yak = yaks[i];
+    var yakDistance = hero.distanceTo(yak);
+    var yakSize = yak.size;
+    // Проверь яка:
+    // Расстояние меньше, чем текущее 'closestDist' и:
+    // Размер больше, чем  'avgSize'.
+    if (yak && yakDistance < closestDist && yakSize > avgSize) {
+        closestDist = yakDistance;
+        bestYak = yak;      
+        hero.say(bestYak);
+    }  
+}
