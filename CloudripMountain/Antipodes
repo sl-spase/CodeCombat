@@ -1,0 +1,40 @@
+// Колдун использовал заклинание клонирования (`clone`) и создал злых антиподов наших лучников.
+// Даже в этом тёмном волшебстве имеется слабое место.
+// Если лучник коснётся своего антипода, то зло исчезнет.
+// Если лучник коснётся не чужого антипода или нападёт на кого-то, клоны нанесут ответный удар.
+// Мы можем распознать антиподов по их именам – они обратны именам оригиналов (написаны задом наперед).
+
+// Эта функция проверяет, являются ли два солдата антиподами или нет.
+function areAntipodes(unit1, unit2) {
+    var reversed1 = unit1.id.split("").reverse().join("");
+    return reversed1 === unit2.id;
+}
+
+var friends = hero.findFriends();
+var enemies = hero.findEnemies();
+
+// Найди антипода для каждого из своих лучников.
+// Перебери всех союзников.
+for(var i = 0; i < friends.length; i++){
+    // Для каждого союзника перебери всех врагов.
+    for(var j = 0; j < enemies.length; j++){
+        // Проверь, является ли текущая пара союзника и врага антиподами.
+        var enemy = enemies[j];
+        var friend = friends[i];
+        if(areAntipodes(friend, enemy)){
+            hero.command(friend, "move", enemy.pos);
+            }
+        
+            // Если они антиподы, прикажи союзнику двигаться в сторону врага.
+    }            
+}
+// Когда исчезнут все клоны, атакуй колдуна.
+while(true) {
+    var nearest = hero.findNearest(hero.findEnemies());
+    if (nearest && nearest.type === "warlock") {
+        for(var i = 0; i < friends.length; i++) {
+            hero.command(friends[i], "attack", nearest);
+        } 
+        hero.attack(nearest);
+    }  
+} 
