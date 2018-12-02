@@ -1,0 +1,73 @@
+// Ogres mined the field to protect their Chieftain.
+// But we can use the "domino" effect get our target.
+// The scout has prepared the map of the minefield.
+// All mines are placed the same distance apart.
+// The map is an array of strings, where "x" is a mine and "." is nothing.
+// The first row in the array is the row nearest to the hero.
+
+// The map and helpful constants are listed below.
+var fieldMap = hero.findFriends()[0].getMap();
+var width = fieldMap[0].length;
+var height = fieldMap.length;
+
+var mine = "x";
+var empty = ".";
+var mineDistance = 5;
+var firstXPos = 15;
+var firstYPos = 40;
+
+// Find which starting mine connects to the ogre Chieftain.
+var x = [];
+var y = [];
+
+for(var i = 0; i < width; i++) {
+    if (fieldMap[height - 1][i] == 'x') {
+        x.push([height - 1, i]);
+    }
+}
+
+//Possible neighbours (shift)
+var neighbourDiffs = [[-1,0], [1,0], [0,-1], [0,1]];
+
+var resultColumn = 1;
+
+while(x.length) {
+    var state = x.pop();
+    var row = state[0];
+    var col = state[1];
+    
+    //String representation of the current positionfor 'visited' search.
+    var strPos = row + "-" + col;
+    if (row === 0) {
+        resultColumn = col;
+        break;
+    }
+    //if we checked the current position
+    if (y.indexOf(strPos) != -1) {
+        continue;
+    }
+    y.push(strPos);
+    
+    for(var b = 0; b < neighbourDiffs.length; b++) {
+        var diff =  neighbourDiffs[b];
+        var neighRow = row + diff[0];
+        var neighCol = col + diff[1];
+        //Check if it's outside the map
+        if (neighRow < 0 || neighCol < 0 || neighRow >= height || neighCol >= width) {
+            continue;
+        }
+        //Don't put in stack the checked nodes
+        var strNeighPos = neighRow + "-" + neighCol;
+        if (y.indexOf(strNeighPos) != -1) {
+            continue;
+        }
+        if (fieldMap[neighRow][neighCol] == 'x') {
+            x.push([neighRow, neighCol]);
+        }
+    }
+}
+
+hero.say("I think it's column number: " + resultColumn);
+var resultX = resultColumn * mineDistance + firstXPos;
+hero.moveXY(resultX, hero.pos.y);
+hero.moveXY(resultX, firstYPos);
