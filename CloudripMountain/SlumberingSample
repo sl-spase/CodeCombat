@@ -1,0 +1,17 @@
+// Последняя пауза перед осуществлением плана!
+// Тебе предстоит помочь Сенику получить средний размер йети.
+
+// Найди всех йети, используя `findByType`:
+var yetis = hero.findByType("yeti");
+// Напиши с нуля функцию `averageSize`:
+var sum = 0;
+function averageSize(){
+    for(var i = 0; i < yetis.length; i++){
+        var yeti = yetis[i];
+        sum += yeti.size;
+        }
+        return sum / yetis.length;
+    }
+// Скажи средний размер йети:
+var size = averageSize();
+hero.say(size);
