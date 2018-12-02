@@ -1,0 +1,35 @@
+// Пройди горный лабиринт вместе с крестьянином-напарником.
+// Необходим продвинутый цикл `while`!
+
+function moveBothTo(point) {
+    while(hero.distanceTo(point) > 1) {
+        hero.move(point);
+        hero.command(peasant, "move", point);
+    }
+}
+
+var peasant = hero.findNearest(hero.findFriends());
+while(true) {
+    // Прикажи другу построить приманку на x+2.
+    hero.command(peasant, "buildXY", "decoy", peasant.pos.x + 2, peasant.pos.y);
+    var nextPoint = {x: hero.pos.x, y: hero.pos.y + 28};
+    moveBothTo(nextPoint);
+    // Создай новый объект x/y на расстоянии x+28:
+    nextPoint = {x: hero.pos.x + 28, y: hero.pos.y};
+    // Найди ближайшего врага:
+    var enemy = hero.findNearestEnemy();
+    // Пока есть враг:
+    while(enemy && enemy.type == "scout") {
+        while(enemy.health > 0) {
+            hero.attack(enemy);
+        }
+        enemy = hero.findNearestEnemy();
+    }
+        // Пока здоровье врага > 0
+        
+            // Атакуй врага:
+            
+        // Обнови переменную на следующего врага:
+        
+    moveBothTo(nextPoint);
+}
