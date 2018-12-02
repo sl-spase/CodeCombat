@@ -1,0 +1,30 @@
+// Сеник пытается разыскать неуловимого Нажористого бурла!
+// Правда, он не знает, насколько большим должен быть Нажористый бурл...
+//  Определи средний размер бурлов для сравнения!
+
+// Эта функция возвращает средний размер бурлов в массиве.
+function averageSize(burls) {
+    var sum = sumSize(burls);
+    // Помни, что среднее -- это сумма частей, делённая на их количество!
+    return sum / burls.length;
+}
+
+// Эта функция должна вернуть сумму размеров всех бурлов.
+function sumSize(burls) {
+    // Реализуй функцию суммы для размеров (`size`) бурлов:
+    burls = hero.findByType("burl");
+    var sum = 0;
+    for (var i = 0; i < burls.length; i++){
+        var burl = burls[i];
+        sum += burl.size;
+        }
+    return sum;
+}
+
+while(true) {
+    // Найди средний размер бурлов вызовом функции `averageSize`.
+    var burls = hero.findByType("burl");
+    var say = averageSize(burls);
+    // Скажи средний размер увиденных бурлов!
+    hero.say(say);
+}
