@@ -1,0 +1,27 @@
+// Найди скрытое в сообщении агента число, чтобы сбежать.
+// Подсчитай число ведущих и конечных пробелов.
+
+// Эта функция возвращает координаты n-го прохода.
+function passagePosByNum(n) {
+    return {x: 60, y: n * 12 + 8};
+}
+
+function onHear(event) {
+    // Исходное сообщение.
+    var message = event.message;
+    
+    var cutMessage = message.trim();
+    var secretMessage = message.length - cMessage.length;
+    pet.say(secretMessage);
+    var pos = passagePosByNum(secretMessage);
+    pet.moveXY(pos.x, pos.y);
+    pet.moveXY(0, pos.y);
+
+}
+
+pet.on("hear", onHear);
+
+// Герой должен следовать за питомцем.
+while(true) {  
+    hero.move(pet.pos);
+}
