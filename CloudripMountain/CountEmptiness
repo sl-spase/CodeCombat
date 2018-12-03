@@ -1,0 +1,18 @@
+// Реши головоломку и найди сокровище.
+// Сосчитай общее число пробелов по краям загадки.
+
+// Функция перемещает героя на N шагов вправо.
+function moveNSteps(n) {
+    hero.moveXY(hero.pos.x + 8 * n, hero.pos.y);
+}
+
+// Прочитай загадку.
+var riddle = hero.findNearestEnemy().riddle;
+// Обрежь пробелы с обеих сторон и сохрани в переменную
+var trimmed = riddle.trim();
+// Найди разницу между длинами:
+var cleaned = riddle.length - trimmed.length;
+// Используй результат и функцию `moveNSteps` для движения на место:
+moveNSteps(cleaned);
+// Скажи что-нибудь!
+hero.say("Karamba");
