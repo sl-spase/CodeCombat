@@ -1,0 +1,38 @@
+// Найди пароли и добудь сокровище.
+
+// We intercepted a scout with an encoded message.
+var encodedMessage = hero.findNearest(hero.findFriends()).message;
+// Здесь мы сохраним пароли
+var passwordArray = [];
+// У всех настоящих паролей 5 букв.
+var passwordLength = 5;
+
+// Split encodedMessage by using a ";" and save the words in a variable.
+var splitMessages = encodedMessage.split(";");
+// Перебери все слова.
+for(var i = 0; i < splitMessages.length; i++){
+    // Обрежь каждое слово, чтобы удалить пробелы.
+    var splitMessage = splitMessages[i];
+    var cleanedMessage = splitMessage.trim();
+    // Если длина очищенного слова равна 5:
+    if (cleanedMessage.length == passwordLength) {
+        passwordArray.push(cleanedMessage);
+    }
+        // Push the cleaned word to passwordArray:
+        
+}
+
+// Двигайся на каждую отметку и называй верный пароль:
+var marksPos = [{x: 12, y: 14}, {x: 38, y: 38},
+    {x: 42, y: 16}, {x: 54, y: 12}];
+for (var i = 0; i < 4; i++) {
+    var pos = marksPos[i];
+    hero.moveXY(pos.x, pos.y);
+    var password = passwordArray[i];
+    if (password) {
+        hero.say(password);
+    } 
+    else {
+        hero.say("qwerty");
+    }
+}
