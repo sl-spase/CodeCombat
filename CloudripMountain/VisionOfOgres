@@ -1,0 +1,33 @@
+// Уничтожь реального огра и иллюзии пропадут.
+
+function findRealEnemy(enemies) {
+    for (var index = 0; index < enemies.length; index++) {
+        var enemy = enemies[index];
+        // Переведи имя  врага (id) в нижний регистр
+        // и сохрани его в переменную.
+        var name = enemy.id;
+        var lowerName = name.toLowerCase();
+        // Разбей (`split`) имя по пробелам и сохрани слова.
+        var splitName = lowerName.split(" "); 
+        // Сохрани второе слово в переменную.
+        var secondWord = splitName[1];
+        // Если первая буква второго слова равна
+        // последней букве слова.
+        if (secondWord[0] == secondWord[secondWord.length - 1]) {
+            return enemy;
+        }
+            // Вот этот настоящий. Вернуть врага.
+            
+    }
+}
+
+// Атакуй только настоящих огров.
+while(true) {
+    var ogres = hero.findEnemies();
+    var realOgre = findRealEnemy(ogres);
+    if (realOgre) {
+        while(realOgre.health > 0) {
+            hero.attack(realOgre);
+        }
+    }
+}
