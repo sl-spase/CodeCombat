@@ -1,0 +1,32 @@
+// Тебе нужно победить огров.
+// Пошли крестьян-верейети в лагерь огров и наблюдай,
+
+// Эта функция возвращает юнита по имени.
+function findFriendByName(name) {
+    var friends = hero.findFriends();
+    for (var i = 0; i < friends.length; i++) {
+        if (friends[i].id == name) {
+            return friends[i];
+        }
+    }
+    return null;
+}
+
+// Сержант записал имена крестьян-верейети.
+var sergeant = hero.findNearest(hero.findFriends());
+var wereList = sergeant.wereList;
+// Список не подготовлен и содержит лишние пробелы. 
+var wereNames = wereList.split(",");
+
+// Перебери массив wereNames:
+for(var i = 0; i < wereNames.length; i++){
+    // Сохрани имя из массива в переменную:
+    var wereName = wereNames[i];
+    // Обрежь (trim) пробелы у имени.
+    // и сохрани результат в новой переменной:
+    var cleaned = wereName.trim();
+    // Используй функцию findFriendByName чтобы найти верейети:  
+    var friend = findFriendByName(cleaned);
+    // Прикажи данному юниту двигаться в лагерь огров:
+    hero.command(friend, "move", {x:48, y:48});
+}
