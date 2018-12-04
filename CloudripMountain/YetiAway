@@ -1,0 +1,24 @@
+// Следуй за одним из крестьян и сбеги от йети.
+
+function startsWith(phrase, word) {
+    if (word.length > phrase.length) {
+        return false;
+    }
+    // Перебери индекс от 0 до длины `word`.
+    for(var i = 0; i < word.length; i++)
+     if (word[i] != phrase[i]) {
+         return false;
+     }
+    return true;
+}
+
+// Следуй за проводником, имя которого начинается с "Mac".
+var guides = hero.findFriends();
+for (var gIndex = 0; gIndex < guides.length; gIndex++) {
+    var guide = guides[gIndex];
+    if (startsWith(guide.id, "Mac")) {
+        while(true) {
+            hero.move(guide.pos);
+        }
+    }
+}
