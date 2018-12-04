@@ -1,0 +1,16 @@
+// Победи всех наступающих огров.
+
+while(true) {
+    // Найди ближайшего врага.
+    var enemy = hero.findNearestEnemy();
+    // Если есть враг и это драчун ("brawler"):
+    if (enemy) {
+       if (enemy.type == "brawler") {
+        var upperName = enemy.id.toUpperCase();
+        hero.say(upperName);
+       }
+       else {
+           hero.attack(enemy);
+       }
+    }
+}
