@@ -1,0 +1,42 @@
+// Передвигай героя и питомца к выходам.
+
+function onHear(event) {
+    // Узнай громкость пароля.
+    var words = event.message.split(" ");
+    var volume = words[0];
+    var password = words[1];
+    // Если пароль должен быть громким:
+    if (volume == "Loud") {
+        // Питомец повторяет в ВЕРХНЕМ регистре.
+        pet.say(words[1].toUpperCase());
+    }
+    // Если пароль должен быть тихим:
+    if (volume == "Quiet") {
+        // Питомец повторяет это в нижнем регистре.
+        pet.say(words[1].toLowerCase());
+    }
+    pet.moveXY(pet.pos.x+ 24, pet.pos.y);
+}
+
+function passDoor() {
+    var guard = hero.findNearest(hero.findFriends());
+    var password = guard.password;
+    // Если пароль должен быть громким:
+    if (guard.isLoud) {
+        // Используй метод `.toUpperCase()` для пароля.
+        hero.say(password.toUpperCase());
+    }
+    // Если пароль должен быть тихим:
+    else if (guard.isQuiet) {
+        // Используй метод `.toLowerCase()` для пароля.
+        hero.say(password.toLowerCase());
+    }
+    hero.moveXY(hero.pos.x+ 24, hero.pos.y);
+}
+
+// Пусть питомец слушает охранников.
+pet.on("hear", onHear);
+// Код для прохождения героя в двери.
+hero.moveXY(10, 14);
+passDoor();
+passDoor();
