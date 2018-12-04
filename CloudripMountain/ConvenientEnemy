@@ -1,0 +1,31 @@
+// Огры прячутся в лесах. Защити крестьян.
+// Последнее слово в сообщениях крестьян - это подсказка.
+
+for (var x = 8; x <= 72; x += 16) {
+    hero.moveXY(x, 22);
+    // Крестьяне знают, кого призывать.
+    var peasant = hero.findNearest(hero.findFriends());
+    var message = peasant.message;
+    if (message) {
+        // Слова разделены пробелами.
+        var words = message.split(" ");
+        // "words" - это массив слов из сообщения "message".
+        // Возьми последнее слово - это нужный тип воинов.
+       var summon = words[words.length - 1];
+       hero.summon(summon);
+    }
+}
+
+for (var i = 0; i < hero.built.length; i++) {
+    var unit = hero.built[i];
+    // Прикажи воинам защищать позиции
+    hero.command(unit, "defend", unit.pos);
+}
+
+// Последнюю черту защищай сам:
+while(true) {
+var enemy = hero.findNearestEnemy();
+if (enemy) {
+    hero.attack(enemy);
+}
+}
