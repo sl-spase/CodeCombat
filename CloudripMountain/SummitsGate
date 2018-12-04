@@ -1,0 +1,110 @@
+  //Commented out to stop infinite loop.
+// Прорвись с боем в святилище вождя огров и убей его.
+var summonTypes = ["soldier","archer","soldier","archer","soldier","archer","soldier","archer"];
+
+function summonTroops() {
+    var type = summonTypes[hero.built.length % summonTypes.length];
+    if(hero.gold >= hero.costOf(type)) {
+        hero.summon(type);
+    }
+}
+
+function lowestHealthSoldier() {
+    var lowestHealth = 99999;
+    var lowestFriend = null;
+    var friends = hero.findFriends();
+    for(var f=0; f < friends.length; f++) {
+        var friend = friends[f];
+        if(friend.type != "paladin") { continue; }
+        if(friend.health < lowestHealth && friend.health < friend.maxHealth) {
+            lowestHealth = friend.health;
+            lowestFriend = friend;
+        }
+    }
+    return lowestFriend;
+}
+
+function commandPaladin(paladin) {
+    var lowestH = lowestHealthSoldier();
+    var enemy = paladin.findNearestEnemy();
+    if (lowestH && paladin.canCast("heal") && friend.health < friend.maxHealth / 2) {
+        hero.command(paladin, "cast", "heal", friend);
+    }
+    else if(paladin.health < paladin.maxHealth / 2) {
+        hero.command(paladin, "shield");
+    }
+    else if (enemy) {
+        hero.command(paladin, "attack", enemy);    
+    }   
+    else if (hero.health < hero.maxHealth / 2) {
+         hero.command(paladin, "cast", "heal", hero);
+    }   
+}
+
+hero.commandSoldier = function(soldier) {
+    // Солдаты должны атаковать противника.
+    if (soldier.health>50){
+        var enemy = soldier.findNearestEnemy();
+        if (enemy){
+            hero.command(soldier, "attack", enemy);
+        }
+    } else {
+        hero.command(soldier, "move", hero.pos);
+    }    
+};
+
+hero.commandArcher = function(archer) {
+    var enemy = archer.findNearestEnemy();
+    if (enemy) {
+        hero.command(archer, "attack", enemy);
+    }
+    else if (archer.distanceTo(hero) > 100) {
+        hero.command(archer, "move", hero.pos);    
+    }
+};
+
+function heroCommand(){
+    var friends = hero.findFriends();
+    for(var i=0; i < friends.length; i++) {
+        var friend = friends[i];
+        if(friend.type == "soldier") {
+            // This friend will be assigned to the variable soldier in commandSoldier
+            hero.commandSoldier(friend);
+        } else if(friend.type == "archer") {
+            // Уверенно командуйте Вашими лучниками.
+            hero.commandArcher(friend);
+        }
+        else if(friend.type == "paladin") {
+            commandPaladin(friend);
+        }
+    }
+    }
+
+while(true) {
+    
+    summonTroops();
+    heroCommand();
+    var catapults = hero.findByType("catapult");
+    
+    var flag = hero.findFlag();
+    for(var i = 0; i < catapults.length; i++){
+        var catapult = catapults[i];
+    if (catapult) {
+        hero.attack(catapult);
+        continue;
+    }
+    }  
+    var enemy = hero.findNearestEnemy();
+    
+    if(enemy.health > 0 && !flag && hero.distanceTo(enemy) < 50){
+        hero.attack(enemy);
+    }
+    else if (flag){
+        hero.move(flag.pos);
+        hero.pickUpFlag(flag);
+        }
+    else if (enemy.type == "warlock"){
+        hero.attack(enemy);
+        }
+    }
+
