@@ -1,0 +1,42 @@
+// Защити деревню от орков
+// Следи за орками, крестьянами и за орками, переодетыми в крестьян
+
+// Эта функция проверяет, начинается ли текст со слова
+function startsWith(text, word) {
+    // Если слово длинее, тогда текст:
+    if(word.length > text.length) {
+        return false;
+    }
+    // Перебери в цикле по позициям символы слова и текста
+    for (var index = 0; index < word.length; index++) {
+        // Если символы на одних и тех же позициях отличаются:
+        if (word[index] != text[index]) {
+            // Значит слово не совпадает с текстом
+            return false;
+        }
+    }
+    // Мы проверили все буквы и они одинаковы
+    return true;
+}
+
+var ogreNameStart = "Zog";
+
+while(true) {
+    var enemy = hero.findNearestEnemy();
+    var suspectFriend = hero.findNearest(hero.findFriends());
+    var suspectName = suspectFriend.id;
+    // Use the function "startsWith" to check
+    // Если имя (id) подозреваемого начинается с "Zog", атакуй:
+    if (startsWith(suspectName, ogreNameStart)) {
+        hero.attack(suspectName);
+    }
+    var enemy = hero.findNearestEnemy();
+    // if there is an enemy, then attack it:
+    if (enemy) {
+        hero.attack(enemy);
+    }
+    // Иначе, возвращайся на красную метку (в форме Х):
+    else {
+        hero.moveXY(27, 27);
+    }
+}
