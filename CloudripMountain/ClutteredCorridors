@@ -1,0 +1,23 @@
+// Помоги питомцу найти выход.
+
+function onHear(event) {
+    var word = event.message;
+    // Переведи слово в нижний регистр.
+    word = word.toLowerCase();
+    if (word == "north") {
+        pet.moveXY(pet.pos.x, pet.pos.y + 16);
+    }
+    else if (word == "east") {
+        pet.moveXY(pet.pos.x + 12, pet.pos.y);
+    }
+    else if (word == "south") {
+        pet.moveXY(pet.pos.x, pet.pos.y - 16);
+    }
+    else if (word == "west") {
+        pet.moveXY(pet.pos.x - 12, pet.pos.y);
+    }
+    
+}
+
+// Назначь обработчик событий для "hear" питомца.
+pet.on('hear', onHear);
