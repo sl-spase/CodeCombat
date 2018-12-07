@@ -1,0 +1,44 @@
+// Собери 4 пары самоцветов.
+// Каждая пара должна содержать равноценные самоцветы.
+
+// Эта функция возвращает два предмета с одинаковым значением (`value`).
+function findValuePair(items){
+    // Проверь все возможные пары в массиве.
+    // Перебери индекс `i`  от `0` до конца.
+    for (var i = 0; i < items.length; i++) {
+        var itemI = items[i];
+        // Перебери индекс `j` от `0` до конца.
+        for (var j = 0; j < items.length; j++) {
+            // Если это тот же элемент, пропусти его.
+            if (i == j) {
+                continue;
+            }
+            var itemJ = items[j];
+            // Если найдена пара одинаковых самоцветов, то верни их.
+            if (itemI.value === itemJ.value) {
+                return [itemI, itemJ];
+            }
+        }
+    }
+    // Возвращай пустой массив, если пары не найдено.
+    return null;
+}
+
+while (true) {
+    var gems = hero.findItems();
+    var gemPair = findValuePair(gems);
+    // Если `gemPair` существует, собери самоцветы!
+    if (gemPair) {
+        var gemA = gemPair[0];
+        var gemB = gemPair[1];
+        var x = {x: 40, y:44};
+        // Двигайся к первому самоцвету.
+        hero.moveXY(gemA.pos.x, gemA.pos.y);
+        // Вернись, чтобы ускориться.
+        hero.moveXY(40, 44);
+        // Теперь иди за вторым самоцветом.
+        hero.moveXY(gemB.pos.x, gemB.pos.y);
+        // Вернись, чтобы ускориться.
+        hero.moveXY(40, 44);
+    }
+}
