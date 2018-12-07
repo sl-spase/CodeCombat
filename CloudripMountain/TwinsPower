@@ -1,0 +1,35 @@
+// Есть четыре пары близнецов, и они должны молиться попарно.
+// Тебе надо найти близнецов и вызвать их.
+
+// У близнецов имеют почти одинаковые имена, отличается только последняя буква.
+// Эта функция проверяет, является ли пара юнитов близнецами.
+function areTwins(unit1, unit2) {
+    var name1 = unit1.id;
+    var name2 = unit2.id;
+    if (name1.length !== name2.length) {
+        return false;
+    }
+    for (var i = 0; i < name1.length - 1; i++) {
+        if (name1[i] !== name2[i]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+var paladins = hero.findFriends();
+for (var i = 0; i < paladins.length; i++){
+    var paladin1 = paladins[i];
+// Например: hero.say("NameTwin1 NameTwin2")
+for (var j = 0; j < paladins.length; j++){
+    if (i == j) {
+        continue;
+}
+var paladin2 = paladins[j];
+    if (areTwins(paladin1, paladin2)) {
+        hero.say(paladin1.id + " " + paladin2.id);
+}
+}
+}
+hero.moveXY(63, 36);
+hero.moveXY(3, 36);
