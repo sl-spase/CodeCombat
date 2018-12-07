@@ -1,0 +1,38 @@
+// Тебе нужно отвлечь "Большую Берту", пока не прибудет спецназ.
+// Пушка всегда стреляет в пару солдат, которые ближе друг к другу.
+
+// Эта функция находит пару юнитов
+// с минимальным взаимным расстоянием.
+function findNearestPair(units) {
+    var minDistance = 9001;
+    var nearestPair = ["Nobody", "Nobody"];
+    // Проверь и сравни все пары юнитов.
+    // Перебери солдат с индексом `i` от 0 до `units.length'.
+    for(var i = 0; i < units.length; i++){
+        var unitI = units[i];
+        for (var j = i + 1; j < units.length; j++){
+            if (i == j) {
+                continue;
+            }
+            var unitJ = units[j];
+        var dist = unitI.distanceTo(unitJ);
+            // Если расстояние меньше, чем `minDistance`:
+            if (dist < minDistance) {
+                minDistance = dist;
+                nearestPair = [unitI.id, unitJ.id];
+            }
+    }           
+    }      
+    return nearestPair;
+}
+
+while (true) {
+    var soldiers = hero.findByType("soldier");
+    // Мы знаем когда пушка стреляет.
+    if (hero.time % 8 === 5) {
+        // Определи солдат в опасности и защити их.
+        var pairOfNames = findNearestPair(soldiers);
+        // Произнеси имена солдат, и волшебники защитят их.
+        hero.say(pairOfNames[0] + " " + pairOfNames[1]);
+    }
+}
