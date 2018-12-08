@@ -1,0 +1,48 @@
+// Это массив с позициями загонов.
+var penPositions = [ {"x":20,"y":24}, {"x":28,"y":24}, {"x":36,"y":24}, {"x":44,"y":24}, {"x":52,"y":24} ];
+
+// Этот массив используй для отслеживания, какой олень находится в данном загоне.
+var penOccupants = [ null, null, null, null, null ];
+
+// А этот массив содержит самих оленей.
+var friends = hero.findFriends();
+
+// Выясни, какие олени уже в загонах.
+for (var deerIndex = 0; deerIndex < friends.length; deerIndex++) {
+    var reindeer = friends[deerIndex];
+    
+    // Проверь на совпадение позиции загона и оленя.
+    for (var penIndex = 0; penIndex < penPositions.length; penIndex++) {
+        var penPos = penPositions[penIndex];
+        
+        if (penPos.x == reindeer.pos.x && penPos.y == reindeer.pos.y) {
+            // Помести оленя в `penOccupants` по индексу `penIndex`.
+            penOccupants[penIndex] = penPos;
+            // Удали оленя из `friends`.
+            friends[deerIndex] = null;
+            // прерви внутренний цикл.
+            break;
+        }
+    }
+}
+
+// Назначь оставшимся оленям новые позиции.
+for (deerIndex = 0; deerIndex < friends.length; deerIndex++) {
+    // Если олень нулевой, используй `continue`:
+    if (friends[deerIndex] === null) {
+        continue;
+    }
+    
+    // Найди первый пустой загон.
+    for (var occIndex = 0; occIndex < penOccupants.length; occIndex++) {
+        // Если пусто, загон открыт.
+        if (penOccupants[occIndex] === null) {
+            // Помести оленя в `penOccupants`. 
+            penOccupants[occIndex] = friends[deerIndex];
+            // Прикажи оленю двигаться в загон.
+            hero.command(penOccupants[occIndex], 'move', penPositions[occIndex]);
+            // пора прервать, чтобы не переназначать:
+            break;
+        }
+    }
+}
