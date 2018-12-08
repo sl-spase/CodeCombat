@@ -1,0 +1,32 @@
+// Этот массив содержит позиции загонов.
+var penPositions = [ {"x":20,"y":24}, {"x":28,"y":24}, {"x":36,"y":24}, {"x":44,"y":24}, {"x":52,"y":24} ];
+
+// Этот массив служит для отслеживания, какой там олень.
+var penOccupants = [ "empty", "empty", "empty", "empty", "empty" ];
+
+// А этот массив содержит самих оленей.
+var friends = hero.findFriends();
+
+// Выясни, какие олени уже в загонах.
+for (var deerIndex = 0; deerIndex < friends.length; deerIndex++) {
+    var reindeer = friends[deerIndex];
+
+    // Проверь на совпадение позиции загона и оленя.
+    for (var penIndex = 0; penIndex < penPositions.length; penIndex++) {
+        var penPos = penPositions[penIndex];
+
+        if (penPos.x == reindeer.pos.x && penPos.y == reindeer.pos.y) {
+            // Помести `id` в `penOccupants` по индексу `penIndex`.
+            penOccupants[penIndex] = reindeer.id;
+            // прерви внутренний цикл.
+            break;
+        }
+    }
+}
+
+// Скажи Мереку, что в каждом загоне.
+for (var occIndex = 0; occIndex < penOccupants.length; occIndex++) {
+    // Скажи Мереку индекс загона и его занятость.
+    // Скажи, например, "Pen 3 is Dasher" ("В загоне 3 Дэшер").
+    hero.say("Pen " + occIndex + " is " + penOccupants[occIndex]);
+}
