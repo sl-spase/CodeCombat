@@ -1,0 +1,28 @@
+// Наши крестьяне-лунатики возвращаются.
+// Но за ними следуют спящие йети.
+// НЕ РАЗБУДИ ИХ!
+// Построй заборы, чтобы пропустить крестьян и задержать йети.
+
+
+// Сеник подготовил схему строительства заборов.
+var hunter = hero.findNearest(hero.findFriends());
+var fenceMap = hunter.getMap();
+
+// Эта функция конвертирует сетку в координаты XY.
+function convertCoor(row, col) {
+    return {x: 34 + col * 4, y: 26 + row * 4};
+}
+
+for(var i = 0; i < fenceMap.length; i++){
+// Перебери `fenceMap` и построй заборы на местах с 1.
+    var row = fenceMap[i];
+    for(var j = 0; j < row.length; j++){
+// Вернись в деревню после строительства заборов.
+        var col = row[j];
+        if (col === 1) {
+            var conv = convertCoor(i,j);
+            hero.buildXY("fence", conv.x, conv.y);
+        }
+    }
+}
+hero.moveXY(55, 10);
