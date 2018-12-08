@@ -1,0 +1,37 @@
+    // Тебе нужно найти и победить 3 скелетов.
+    // Скелеты и предметы призываются в точках силы.
+    // Двигайся в нужную точку и скажи заклинание `VENI`.
+    // Чтобы найти нужные точки, используй карту волшебника.
+    // Нули – плохо. Положительные значения – хорошо.
+    
+    var spell = "VENI";
+    // Карта точек является двумерным (`2D`) массивом чисел.
+    var wizard = hero.findNearest(hero.findFriends());
+    var powerMap = wizard.powerMap;
+    
+    // Эта функция превращает сетку в координаты XY.
+    function convert(row, col) {
+        return {x: 16 + col * 12, y: 16 + row * 12};
+    }
+    
+    // Выполни перебор `powerMap` для поиска положительных чисел.
+    // Сначала пробегись по рядам.
+    for (var i = 0; i < powerMap.length; i++) {
+        // Каждый ряд является массивом. Пробегись по нему.
+        for (var j = 0; j < powerMap[i].length; j++) {
+            // Получи значение в ряде `i` и столбце `j`.
+            var pointValue = powerMap[i][j];
+            // Если это положительное число.
+            if (pointValue > 0) {
+                var spot = convert([i],[j]);
+                var x = spot.x;
+                var y = spot.y;
+                hero.moveXY(x, y);
+                hero.say(spell);
+                var enemy = hero.findNearestEnemy();
+                if (enemy) {
+                    hero.attack(enemy);
+                }
+            }
+        }
+    }
