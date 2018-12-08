@@ -1,0 +1,26 @@
+// В этом массиве хранится статус каждого оленя.
+var deerStatus = [ "asleep", "asleep", "asleep", "asleep", "asleep" ];
+
+// А этот массив содержит самих оленей.
+var friends = hero.findFriends();
+
+// Перебери всех оленей и найди проснувшихся:
+for (var deerIndex = 0; deerIndex < friends.length; deerIndex++) {
+    var reindeer = friends[deerIndex];
+
+    // Олень с позицией > 30 уже не в загоне.
+    // Если да, то выставь статус "awake".
+    
+    if (reindeer.pos.y > 30) {
+        deerStatus[deerIndex] = "awake";
+    }
+}
+
+// Перебери статусы и сообщи Мереку.
+for (var statusIndex = 0; statusIndex < deerStatus.length; statusIndex++) {
+    // Скажи Мереку индекс оленя и его статус.
+    // Скажи, например, "Reindeer 2 is asleep" ("Олень 2 проснулся").
+    var reindeer = friends[deerIndex];
+    hero.say("Deer " + statusIndex + " is " + deerStatus[statusIndex]);
+}
+
