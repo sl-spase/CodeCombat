@@ -1,0 +1,17 @@
+while(true) {
+    var move = ({"x": hero.pos.x + 2, "y": hero.pos.y });
+    hero.move(move);
+    
+    if (hero.canCast("haste", hero)) {
+        hero.cast("haste", hero);
+    } else if (hero.isReady("reset-cooldown")) {
+        hero.resetCooldown("haste");
+    }
+    
+    var enemy = hero.findNearestEnemy();
+    if (enemy.type == "scout" && hero.distanceTo(enemy) < 10) {
+        hero.manaBlast();
+    }
+}
+
+
