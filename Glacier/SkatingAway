@@ -1,0 +1,32 @@
+// Двигайся к красной отметке X, избегая яков.
+// используй `Vector.normalize(vector1)`, чтобы создать вектор с тем же направлением, что и vector1, но c расстоянием 1 м
+// используй `Vector.multiply(vector1, X)`, чтобы создать вектор с тем же направлением, что и vector1, но с расстоянием, умноженным на X
+
+// Вот координаты цели.
+var goalPoint = new Vector(78, 34);
+
+while(true) {
+    // Здесь создаётся вектор, который направляет героя на 10 м в сторону `goalPoint`.
+    // Для начала создай вектор от героя до цели.
+    var goal = Vector.subtract(goalPoint, hero.pos);
+    // Затем нормализуй его в вектор с расстоянием 1 м.
+    goal = Vector.normalize(goal);
+    // И наконец, умножь вектор на 10, чтобы получить 10-метровый вектор.
+    goal = Vector.multiply(goal, 10);
+    
+    // Чтобы обойти яка, когда он находится в пределах 10 м, ты должен идти по вектору от него.
+    var yak = hero.findNearest(hero.findEnemies());
+    var distance = hero.distanceTo(yak);
+    if(distance < 10) {
+        // Создай вектор от яка к герою.
+        var disTo = Vector.subtract(hero.pos, yak.pos);
+        // Теперь используй `Vector.normalize` и `Vector.multiply`, чтобы сделать этот вектор длиной 10 м
+        disTo = Vector.normalize(disTo);
+        disTo = Vector.multiply(disTo, 10);
+        // Как только получил 10-метровый вектор от яка, используй `Vector.add`, чтобы добавить его к целевому вектору!
+        goal = Vector.add(disTo, goal);
+    }
+    // Наконец, определи конечную точку, добавив целевой вектор к текущей позиции.
+    var moveToPos = Vector.add(hero.pos, goal);
+    hero.move(moveToPos);
+}
