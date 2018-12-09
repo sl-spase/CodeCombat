@@ -1,0 +1,40 @@
+// Защити деревню с помощью огненных ловушек (fire-trap).
+// Заминируй все проходы по четырем направлениям.
+// У тебя есть 80 секунд до нападения огров.
+
+// Построй ловушки на линии y=114 от x=40 до x=112 с шагом step=24.
+function buildNorthLine() {
+    for (var x = 40; x <= 112; x += 24) {
+        hero.buildXY("fire-trap", x, 114);
+    }
+}
+
+// Построй ловушки на линии x=140 от y=110 до y=38 с шагом step=18.
+function buildEastLine() {
+    // Допиши эту функцию:
+    for(var y = 110; y >= 38; y -= 18){
+        hero.buildXY("fire-trap", 140, y);
+        }
+}
+
+// Построй ловушки на линии y=22 от x=132 до x=32 с шагом step=20.
+function buildSouthLine() {
+    // Допиши эту функцию:
+    for(var x = 132; x >= 32; x -= 20){
+        hero.buildXY("fire-trap", x, 22);
+        }
+}
+
+// Построй ловушки на линии x=20 от y=28 до y=108 с шагом step=16.
+function buildWestLine() {
+    // Допиши эту функцию:
+    for(var y = 28; y <= 108; y += 16){
+        hero.buildXY("fire-trap", 20, y);
+        }
+}
+
+buildNorthLine();
+buildEastLine();
+buildSouthLine();
+buildWestLine();
+hero.moveXY(40, 94);
