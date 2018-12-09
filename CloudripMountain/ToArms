@@ -1,0 +1,33 @@
+// Огры собираются атаковать.
+// Подойди к каждой палатке (на отметку Х)
+// Скажи что угодно на каждой отметке Х, чтобы разбудить солдат.
+// Внимание: не покидай лагерь после начала битвы!
+// Огры вышлют подкрепление, если увидят героя.
+
+// Сержант знает расстояние между палатками.
+var sergeant =  hero.findNearest(hero.findFriends());
+
+// Расстояния между отметками X.
+var stepX = sergeant.tentDistanceX;
+var stepY = sergeant.tentDistanceY;
+// Количество палаток.
+var tentsInRow = 5;
+var tentsInColumn = 4;
+
+// Первая палатка имеет постоянные координаты.
+var firstX = 10;
+var firstY = 14;
+var maxX = firstX + tentsInRow * stepX;
+var maxY = firstY + tentsInColumn * stepY;
+// Используй вложенные циклы и обойди все 20 палаток.
+// ВАЖНО: двигайся ряд за рядом - это быстрее.
+var i = 1;
+for(var y = firstY; y < maxY; y += stepY){
+        // Иди на отметки возле палаток и скажи что-нибудь.
+        for(var x = firstX; x < maxX; x += stepX){
+            hero.moveXY(x, y);
+            hero.say("Tent " + i + " to arms, enemy");
+            i++;
+    }
+}
+// А теперь наблюдай за битвой.
