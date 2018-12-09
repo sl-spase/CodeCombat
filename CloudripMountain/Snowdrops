@@ -1,0 +1,32 @@
+// Мы должны очистить лес от ловушек!
+// Разведчик подготовил карту леса.
+// Но строки в карте разной длины, так что проверяй перед стрельбой.
+
+// Получи карту леса.
+var forestMap = hero.findNearest(hero.findFriends()).forestMap;
+
+// Карта - это 2D массив, где 0 обозначают ловушки.
+// Сперва выстрел без сомнения.
+hero.say("Строка " + 0 + " Столбец " + 1 + " Огонь!");
+
+// Но следующие точки проверяй до стрельбы.
+// Это массив точек для проверки.
+var cells = [{row: 0, col: 4}, {row: 1, col: 0}, {row: 1, col: 2}, {row: 1, col: 4},
+    {row: 2, col: 1}, {row: 2, col: 3}, {row: 2, col: 5}, {row: 3, col: 0},
+    {row: 3, col: 2}, {row: 3, col: 4}, {row: 4, col: 1}, {row: 4, col: 2},
+    {row: 4, col: 3}, {row: 5, col: 0}, {row: 5, col: 3}, {row: 5, col: 5},
+    {row: 6, col: 1}, {row: 6, col: 3}, {row: 6, col: 4}, {row: 7, col: 0}];
+
+for (var i = 0; i < cells.length; i++) {
+    var row = cells[i].row;
+    var col = cells[i].col;
+    // Сперва проверим, что индекс меньше длины `forestMap`.
+    if (row < forestMap.length){
+        if(col < forestMap[row].length){
+        // Далее проверяем, что `col` меньше длины `forestMap[row]`:
+            if (forestMap[row][col] === 0) {
+                hero.say("Row " + row + " Col " + col);
+            }
+        }
+    }
+}
