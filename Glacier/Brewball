@@ -1,0 +1,39 @@
+// Скажи что-нибудь в 10 м от Омарна, чтобы он бросил зелье.
+// Поймай зелье, стоя в месте его падения.
+// НЕ ДАЙ ЗЕЛЬЮ УПАСТЬ НА ЗЕМЛЮ!
+
+
+while(true) {
+    var potion = hero.findFriendlyMissiles()[0];
+    var firetraps = hero.findHazards();
+    // Запомни, что огненная ловушка сработает, если ты подойдёшь ближе 3 метров!
+    var omarn = hero.findByType("potion-master")[0];
+    if(potion) {
+        var dest = potion.pos;    
+        var nearFire = hero.findNearest(firetraps);
+        if (hero.distanceTo(nearFire)<5) {
+            var fromHazard = Vector.subtract(hero.pos, nearFire.pos);
+            fromHazard = Vector.normalize(fromHazard);
+            fromHazard = Vector.multiply(fromHazard, 25);
+            dest = Vector.add(dest,fromHazard);
+        }
+       // Иди за зельем.
+        hero.move(dest);
+        // Внимание: `isPathClear` не работает с преградами!
+    } else {
+        if(omarn && hero.distanceTo(omarn) > 10) {
+        var dest = omarn.pos;
+        var nearFire = hero.findNearest(firetraps);
+        if (hero.distanceTo(nearFire)<10) {
+            var fromHazard = Vector.subtract(hero.pos, nearFire.pos);
+            fromHazard = Vector.normalize(fromHazard);
+            fromHazard = Vector.multiply(fromHazard, 25);
+            dest = Vector.add(dest,fromHazard);
+        }
+        // Иди за зельем.
+        hero.move(dest); 
+        } else {
+            hero.say("Hup, hup!");
+        }
+    }
+}
